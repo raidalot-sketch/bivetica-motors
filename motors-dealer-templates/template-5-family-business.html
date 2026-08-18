@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Millbrook Motors - Family Run Since 1978</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #3d332b; background: #fdfbf7; line-height: 1.6; }
+header { background: #fdfbf7; padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e8ddc8; }
+.logo { font-size: 22px; font-weight: 700; color: #6b4a2f; }
+.tagline { font-size: 12px; color: #8a7a63; }
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { text-decoration: none; color: #3d332b; font-size: 14px; }
+nav a:hover { color: #6b4a2f; }
+.phone-badge { background: #6b4a2f; color: #fdfbf7; padding: 9px 18px; border-radius: 24px; font-size: 13px; font-weight: 600; }
+
+.hero { background: #f2e8d5; padding: 3rem 2rem; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 1100px; margin: 0 auto; align-items: center; }
+.hero h1 { font-size: 34px; margin-bottom: 1rem; color: #3d332b; }
+.hero p { font-size: 15px; color: #6b5c47; margin-bottom: 1.5rem; }
+.hero-stats { display: flex; gap: 2rem; margin-top: 1.5rem; }
+.hero-stat-value { font-size: 26px; font-weight: 700; color: #6b4a2f; }
+.hero-stat-label { font-size: 12px; color: #8a7a63; }
+.hero-image { background: #ddc9a3; height: 300px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #8a7660; font-size: 14px; }
+
+.story { padding: 3rem 2rem; text-align: center; max-width: 700px; margin: 0 auto; }
+.story-quote { font-size: 20px; font-style: italic; color: #6b4a2f; margin-bottom: 1rem; line-height: 1.6; }
+.story-author { font-size: 13px; color: #8a7a63; }
+
+.team { background: #f7f1e3; padding: 3rem 2rem; }
+.section-title { text-align: center; font-size: 26px; margin-bottom: 0.5rem; color: #3d332b; }
+.section-subtitle { text-align: center; font-size: 14px; color: #8a7a63; margin-bottom: 2rem; }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+.team-member { text-align: center; }
+.team-photo { width: 110px; height: 110px; border-radius: 50%; background: #ddc9a3; margin: 0 auto 0.75rem; display: flex; align-items: center; justify-content: center; color: #8a7660; font-size: 11px; }
+.team-name { font-weight: 700; font-size: 15px; }
+.team-role { font-size: 12px; color: #8a7a63; }
+
+.featured { padding: 3rem 2rem; }
+.featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.vehicle-card { background: #fff; border: 1px solid #e8ddc8; border-radius: 8px; overflow: hidden; }
+.vehicle-image { width: 100%; height: 190px; background: #f2e8d5; display: flex; align-items: center; justify-content: center; color: #a89572; font-size: 13px; }
+.vehicle-info { padding: 1.25rem; }
+.vehicle-name { font-size: 16px; font-weight: 700; margin-bottom: 0.25rem; }
+.vehicle-specs { font-size: 13px; color: #8a7a63; margin: 0.5rem 0; }
+.vehicle-price { font-size: 18px; font-weight: 700; color: #6b4a2f; margin: 0.5rem 0; }
+.vehicle-btn { display: inline-block; margin-top: 0.5rem; padding: 8px 18px; background: #f2e8d5; color: #6b4a2f; text-decoration: none; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.vehicle-btn:hover { background: #e8ddc8; }
+
+.why-us { background: #f7f1e3; padding: 3rem 2rem; }
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+.why-card { background: #fdfbf7; padding: 1.5rem; border-radius: 8px; text-align: center; }
+.why-card-icon { font-size: 28px; margin-bottom: 0.75rem; }
+.why-card h3 { font-size: 15px; margin-bottom: 0.5rem; color: #3d332b; }
+.why-card p { font-size: 13px; color: #8a7a63; }
+
+.testimonial { padding: 3rem 2rem; text-align: center; max-width: 650px; margin: 0 auto; }
+.testimonial-text { font-size: 16px; font-style: italic; color: #6b5c47; margin-bottom: 1rem; }
+.testimonial-name { font-size: 13px; font-weight: 700; }
+
+footer { background: #3d332b; color: #d9cbb0; padding: 2.5rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto 1.5rem; }
+.footer-col h4 { color: #f2e8d5; font-size: 13px; margin-bottom: 0.75rem; }
+.footer-col p { font-size: 13px; line-height: 1.8; }
+.footer-col a { color: #ddc9a3; text-decoration: none; }
+.footer-bottom { border-top: 1px solid #5a4a38; padding-top: 1rem; text-align: center; font-size: 12px; max-width: 1000px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="logo">Millbrook Motors</div>
+    <div class="tagline">Family run since 1978</div>
+  </div>
+  <nav>
+    <a href="#story">Our Story</a>
+    <a href="#vehicles">Vehicles</a>
+    <a href="#team">Meet the Team</a>
+    <a href="#" class="phone-badge">01926 555 214</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <h1>Three generations of honest motoring</h1>
+      <p>We've been helping local families find their perfect car since 1978. No pressure, no jargon — just straightforward advice from people who care.</p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">47</div>
+          <div class="hero-stat-label">Years trading</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">4,200+</div>
+          <div class="hero-stat-label">Happy customers</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">4.9★</div>
+          <div class="hero-stat-label">Google rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image">[Photo: Family outside the original 1978 garage]</div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="story-quote">"My father started this business with three cars on a gravel forecourt. Today my daughter runs the sales floor. We still shake every customer's hand."</div>
+  <div class="story-author">— David Millbrook, Founder</div>
+</section>
+
+<section class="team" id="team">
+  <div class="section-title">Meet the Family</div>
+  <div class="section-subtitle">The people you'll actually talk to</div>
+  <div class="team-grid">
+    <div class="team-member">
+      <div class="team-photo">[Photo]</div>
+      <div class="team-name">David Millbrook</div>
+      <div class="team-role">Founder, Est. 1978</div>
+    </div>
+    <div class="team-member">
+      <div class="team-photo">[Photo]</div>
+      <div class="team-name">Sarah Millbrook</div>
+      <div class="team-role">Sales Director</div>
+    </div>
+    <div class="team-member">
+      <div class="team-photo">[Photo]</div>
+      <div class="team-name">Tom Reilly</div>
+      <div class="team-role">Head Mechanic, 22 yrs</div>
+    </div>
+    <div class="team-member">
+      <div class="team-photo">[Photo]</div>
+      <div class="team-name">Priya Shah</div>
+      <div class="team-role">Customer Care</div>
+    </div>
+  </div>
+</section>
+
+<section class="featured" id="vehicles">
+  <div class="section-title">This Week's Arrivals</div>
+  <div class="section-subtitle">Hand-picked and prepared by our own workshop</div>
+  <div class="featured-grid">
+    <div class="vehicle-card">
+      <div class="vehicle-image">[Image: 2019 Ford Focus]</div>
+      <div class="vehicle-info">
+        <div class="vehicle-name">2019 Ford Focus Titanium</div>
+        <div class="vehicle-specs">1.0L EcoBoost • 32,400 miles • Blue</div>
+        <div class="vehicle-price">£12,995</div>
+        <a href="#" class="vehicle-btn">Ask us about this one</a>
+      </div>
+    </div>
+    <div class="vehicle-card">
+      <div class="vehicle-image">[Image: 2020 Volkswagen Golf]</div>
+      <div class="vehicle-info">
+        <div class="vehicle-name">2020 Volkswagen Golf SE</div>
+        <div class="vehicle-specs">1.5L TSI • 18,900 miles • Grey</div>
+        <div class="vehicle-price">£16,495</div>
+        <a href="#" class="vehicle-btn">Ask us about this one</a>
+      </div>
+    </div>
+    <div class="vehicle-card">
+      <div class="vehicle-image">[Image: 2018 Nissan Qashqai]</div>
+      <div class="vehicle-info">
+        <div class="vehicle-name">2018 Nissan Qashqai N-Connecta</div>
+        <div class="vehicle-specs">1.3L DIG-T • 41,200 miles • White</div>
+        <div class="vehicle-price">£13,750</div>
+        <a href="#" class="vehicle-btn">Ask us about this one</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-us">
+  <div class="section-title">Why Families Choose Us</div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-card-icon">🔧</div>
+      <h3>Our Own Workshop</h3>
+      <p>Every car checked and prepared on-site before it reaches you.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">🤝</div>
+      <h3>No Pressure Sales</h3>
+      <p>Take your time, bring the family, ask as many questions as you like.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">📋</div>
+      <h3>Full History Checked</h3>
+      <p>Every vehicle comes with HPI check and full service history.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">🛠️</div>
+      <h3>12 Month Warranty</h3>
+      <p>Included as standard, with local aftercare from people you know.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="testimonial-text">"Bought our first family car here in 1995, and we've been back four times since. They remember your name and never rush you."</div>
+  <div class="testimonial-name">— The Ashworth Family, Leamington Spa</div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Millbrook Motors</h4>
+      <p>14 Warwick Road, Leamington Spa, CV32 5JT</p>
+    </div>
+    <div class="footer-col">
+      <h4>Get in Touch</h4>
+      <p>01926 555 214<br>hello@millbrookmotors.co.uk<br>Mon–Fri 9–6, Sat 9–4</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <p><a href="#">Part Exchange</a><br><a href="#">Finance Options</a><br><a href="#">Servicing</a><br><a href="#">MOT Testing</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Millbrook Motors. All rights reserved. | <a href="#" style="color:#ddc9a3;">Privacy Policy</a></p>
+  </div>
+</footer>
+</body>
+</html>

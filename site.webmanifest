@@ -1,0 +1,12 @@
+{
+  "name": "Bivetica",
+  "short_name": "Bivetica",
+  "description": "Thoughtful digital tools for modern business.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f2e9",
+  "theme_color": "#f7f2e9",
+  "icons": [
+    { "src": "/assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Motors - Showroom Template</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, serif; line-height: 1.7; color: #1a1a1a; background: #fafafa; }
+header { background: #1a1a1a; color: #fff; padding: 2rem; text-align: center; border-bottom: 4px solid #d4af37; }
+.logo { font-size: 32px; font-weight: 300; letter-spacing: 2px; margin-bottom: 0.5rem; }
+.tagline { font-size: 14px; letter-spacing: 1px; opacity: 0.8; }
+nav { background: #2a2a2a; padding: 1rem 2rem; display: flex; justify-content: center; gap: 3rem; }
+nav a { color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+nav a:hover { color: #d4af37; }
+.hero { background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><rect fill="%23333" width="1200" height="300"/></svg>'); background-size: cover; padding: 4rem 2rem; text-align: center; color: #fff; }
+.hero-content { max-width: 800px; margin: 0 auto; }
+.hero h1 { font-size: 48px; font-weight: 300; margin-bottom: 1rem; letter-spacing: 1px; }
+.hero p { font-size: 16px; margin-bottom: 2rem; opacity: 0.9; }
+.hero-btn { display: inline-block; padding: 12px 32px; background: #d4af37; color: #1a1a1a; text-decoration: none; font-weight: 600; letter-spacing: 1px; }
+.hero-btn:hover { background: #e6c547; }
+
+.featured { background: #fff; padding: 3rem 2rem; }
+.section-title { text-align: center; font-size: 32px; font-weight: 300; margin-bottom: 2rem; letter-spacing: 1px; }
+.featured-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; align-items: center; }
+.featured-image { background: #ddd; height: 350px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px; border: 1px solid #ccc; }
+.featured-details h2 { font-size: 28px; margin-bottom: 1rem; }
+.featured-year { font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+.featured-specs { margin: 1.5rem 0; padding: 1rem 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+.featured-specs p { margin: 0.5rem 0; font-size: 14px; }
+.featured-price { font-size: 24px; font-weight: 600; color: #d4af37; margin: 1.5rem 0; }
+.featured-desc { font-size: 14px; line-height: 1.8; margin-bottom: 1.5rem; color: #666; }
+.featured-btn { display: inline-block; padding: 10px 28px; background: #1a1a1a; color: #d4af37; text-decoration: none; border: 2px solid #d4af37; font-weight: 600; letter-spacing: 1px; }
+.featured-btn:hover { background: #2a2a2a; }
+
+.gallery { padding: 2rem; background: #f5f5f5; }
+.gallery-title { text-align: center; font-size: 28px; font-weight: 300; margin-bottom: 2rem; letter-spacing: 1px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.gallery-item { background: #fff; border: 1px solid #ddd; overflow: hidden; }
+.gallery-item-img { background: #ddd; height: 180px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; }
+.gallery-item-info { padding: 1rem; }
+.gallery-item-title { font-size: 14px; font-weight: 600; margin-bottom: 0.25rem; }
+.gallery-item-price { color: #d4af37; font-weight: 600; font-size: 13px; }
+
+footer { background: #1a1a1a; color: #fff; padding: 2rem; }
+.footer-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem; }
+.footer-section h4 { font-size: 14px; margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase; color: #d4af37; }
+.footer-section p { font-size: 13px; line-height: 1.8; }
+.footer-section a { color: #d4af37; text-decoration: none; }
+.footer-section a:hover { text-decoration: underline; }
+.footer-bottom { border-top: 1px solid #333; padding-top: 1rem; text-align: center; font-size: 12px; opacity: 0.7; }
+
+@media (max-width: 768px) {
+  .featured-showcase { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-content { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">ELITE MOTORS</div>
+  <div class="tagline">Distinguished Automotive Collections</div>
+</header>
+
+<nav>
+  <a href="#showcase">Showcase</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#services">Services</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>The Finest Vehicles of Our Time</h1>
+    <p>Curated selections for the discerning collector</p>
+    <a href="#gallery" class="hero-btn">Explore Our Collection</a>
+  </div>
+</div>
+
+<section class="featured" id="showcase">
+  <div class="section-title">Featured Presentation</div>
+
+  <div class="featured-showcase">
+    <div class="featured-image">[High-res image: 1966 Jaguar XJ13]</div>
+    <div class="featured-details">
+      <div class="featured-year">Introduced 1966</div>
+      <h2>Jaguar XJ13</h2>
+      <div class="featured-specs">
+        <p><strong>Engine:</strong> 5.0L V12 • 502 bhp</p>
+        <p><strong>Transmission:</strong> Manual 5-speed</p>
+        <p><strong>Colour:</strong> British Racing Green</p>
+        <p><strong>Mileage:</strong> 41,200 miles (documented)</p>
+      </div>
+      <div class="featured-price">£425,000</div>
+      <div class="featured-desc">
+        One of only two original XJ13s built by Jaguar. This is an exceptional example of automotive engineering and British craftsmanship. Fully documented history with extensive records. Ready for collection or further exhibition.
+      </div>
+      <a href="#" class="featured-btn">Request Viewing</a>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="gallery-title">Current Collection</div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1957 Corvette]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1957 Chevrolet Corvette</div>
+        <div class="gallery-item-price">£165,000</div>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1963 Aston Martin]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1963 Aston Martin DB5</div>
+        <div class="gallery-item-price">£295,500</div>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1965 Mustang]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1965 Ford Mustang Fastback</div>
+        <div class="gallery-item-price">£48,900</div>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1968 Ferrari]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1968 Ferrari 275 GTB/4</div>
+        <div class="gallery-item-price">£385,000</div>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1970 Dodge]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1970 Dodge Charger R/T</div>
+        <div class="gallery-item-price">£72,500</div>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1961 Lotus]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1961 Lotus Elite Series 1</div>
+        <div class="gallery-item-price">£45,000</div>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1972 Porsche]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1972 Porsche 911 Carrera</div>
+        <div class="gallery-item-price">£185,500</div>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-item-img">[Image: 1955 Mercedes]</div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-title">1955 Mercedes 300SL Roadster</div>
+        <div class="gallery-item-price">£298,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Elite Motors</h4>
+      <p>
+        Specialists in rare and classic<br>
+        automotive excellence since 1985
+      </p>
+    </div>
+    <div class="footer-section">
+      <h4>Visit Us</h4>
+      <p>
+        Heritage Court<br>
+        Oxfordshire, England<br><br>
+        +44 (0)1234 123456<br>
+        <a href="mailto:concierge@elitemotors.co.uk">concierge@elitemotors.co.uk</a>
+      </p>
+    </div>
+    <div class="footer-section">
+      <h4>Services</h4>
+      <p>
+        <a href="#">Acquisition</a><br>
+        <a href="#">Restoration</a><br>
+        <a href="#">Brokerage</a><br>
+        <a href="#">Insurance</a>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Elite Motors. All rights reserved. | <a href="#" style="color: #d4af37;">Privacy</a></p>
+  </div>
+</footer>
+</body>
+</html>

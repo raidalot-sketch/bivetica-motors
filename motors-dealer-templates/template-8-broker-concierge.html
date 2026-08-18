@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashford & Vane - Private Motorcar Brokerage</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #fff; background: #0a0a0a; }
+header { padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 20px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; }
+nav { display: flex; gap: 2.5rem; align-items: center; }
+nav a { color: #ccc; text-decoration: none; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+nav a:hover { color: #d4af37; }
+.consult-btn { border: 1px solid #d4af37; color: #d4af37; padding: 10px 24px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+.hero { padding: 6rem 3rem; text-align: center; max-width: 800px; margin: 0 auto; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #d4af37; margin-bottom: 1.5rem; }
+.hero h1 { font-size: 46px; font-weight: 200; line-height: 1.3; margin-bottom: 1.5rem; }
+.hero p { font-size: 15px; color: #999; margin-bottom: 2.5rem; line-height: 1.8; }
+.hero-btn { display: inline-block; padding: 16px 42px; background: #d4af37; color: #0a0a0a; text-decoration: none; font-weight: 600; letter-spacing: 1px; font-size: 13px; text-transform: uppercase; }
+.hero-btn:hover { background: #e6c547; }
+
+.services { padding: 3rem; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; text-align: center; }
+.service-item h3 { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: #d4af37; margin-bottom: 0.75rem; }
+.service-item p { font-size: 13px; color: #999; line-height: 1.7; }
+
+.acquisitions { padding: 4rem 3rem; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #d4af37; margin-bottom: 0.75rem; }
+.section-header h2 { font-size: 32px; font-weight: 200; }
+.acq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2px; max-width: 1200px; margin: 0 auto; }
+.acq-item { background: #111; position: relative; }
+.acq-image { width: 100%; height: 340px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: #555; font-size: 13px; }
+.acq-overlay { padding: 1.5rem; }
+.acq-status { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #d4af37; margin-bottom: 0.5rem; }
+.acq-title { font-size: 18px; font-weight: 300; margin-bottom: 0.5rem; }
+.acq-desc { font-size: 12px; color: #888; line-height: 1.7; }
+
+.process { background: #0f0f0f; padding: 4rem 3rem; }
+.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+.process-step { text-align: center; }
+.process-number { font-size: 40px; font-weight: 100; color: #d4af37; margin-bottom: 0.75rem; }
+.process-step h3 { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.5rem; }
+.process-step p { font-size: 12px; color: #888; line-height: 1.7; }
+
+.testimonial-strip { padding: 4rem 3rem; text-align: center; max-width: 700px; margin: 0 auto; }
+.testimonial-strip p { font-size: 20px; font-weight: 200; font-style: italic; line-height: 1.7; margin-bottom: 1rem; color: #ddd; }
+.testimonial-strip span { font-size: 12px; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+
+.cta-final { background: #d4af37; color: #0a0a0a; padding: 3.5rem 2rem; text-align: center; }
+.cta-final h2 { font-size: 28px; font-weight: 400; margin-bottom: 1rem; }
+.cta-final p { font-size: 14px; margin-bottom: 1.5rem; opacity: 0.85; }
+.cta-final-btn { display: inline-block; padding: 14px 36px; background: #0a0a0a; color: #d4af37; text-decoration: none; font-weight: 600; letter-spacing: 1px; font-size: 13px; text-transform: uppercase; }
+
+footer { padding: 2.5rem 3rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto 1.5rem; }
+.footer-col h4 { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #d4af37; margin-bottom: 0.75rem; }
+.footer-col p { font-size: 13px; color: #888; line-height: 1.8; }
+.footer-col a { color: #888; text-decoration: none; }
+.footer-bottom { border-top: 1px solid #1a1a1a; padding-top: 1.25rem; text-align: center; font-size: 11px; color: #666; max-width: 1100px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Ashford & Vane</div>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#acquisitions">Recent Acquisitions</a>
+    <a href="#process">Our Process</a>
+    <a href="#" class="consult-btn">Book a Consultation</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Private Motorcar Brokerage</div>
+  <h1>We find the car. You don't lift a finger.</h1>
+  <p>A discreet, personal sourcing service for collectors and enthusiasts who value their time as much as their taste in motorcars.</p>
+  <a href="#" class="hero-btn">Arrange a Private Consultation</a>
+</section>
+
+<section class="services" id="services">
+  <div class="services-grid">
+    <div class="service-item">
+      <h3>Sourcing</h3>
+      <p>We locate vehicles matching your brief, often before they reach the open market.</p>
+    </div>
+    <div class="service-item">
+      <h3>Inspection</h3>
+      <p>Independent mechanical and provenance verification on every candidate vehicle.</p>
+    </div>
+    <div class="service-item">
+      <h3>Negotiation</h3>
+      <p>We handle the entire transaction on your behalf, discreetly and efficiently.</p>
+    </div>
+    <div class="service-item">
+      <h3>Delivery</h3>
+      <p>Fully insured transport to your door, anywhere in the UK or internationally.</p>
+    </div>
+  </div>
+</section>
+
+<section class="acquisitions" id="acquisitions">
+  <div class="section-header">
+    <div class="section-eyebrow">Recently Sourced</div>
+    <h2>Recent Acquisitions</h2>
+  </div>
+  <div class="acq-grid">
+    <div class="acq-item">
+      <div class="acq-image">[Image: 1967 Ferrari 275 GTB]</div>
+      <div class="acq-overlay">
+        <div class="acq-status">Sourced for a private client — April 2026</div>
+        <div class="acq-title">1967 Ferrari 275 GTB/4</div>
+        <div class="acq-desc">Located in a private Swiss collection, negotiated and imported within 6 weeks.</div>
+      </div>
+    </div>
+    <div class="acq-item">
+      <div class="acq-image">[Image: 2023 Porsche 911 S/T]</div>
+      <div class="acq-overlay">
+        <div class="acq-status">Allocation secured — February 2026</div>
+        <div class="acq-title">2023 Porsche 911 S/T</div>
+        <div class="acq-desc">Factory allocation secured through our manufacturer relationships.</div>
+      </div>
+    </div>
+    <div class="acq-item">
+      <div class="acq-image">[Image: 1971 Lamborghini Miura]</div>
+      <div class="acq-overlay">
+        <div class="acq-status">Currently sourcing — client brief active</div>
+        <div class="acq-title">1971 Lamborghini Miura P400 SV</div>
+        <div class="acq-desc">Actively searching on behalf of a collector for a matching-numbers example.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="section-header">
+    <div class="section-eyebrow">How It Works</div>
+    <h2>A Simple, Discreet Process</h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="process-number">01</div>
+      <h3>The Brief</h3>
+      <p>A confidential consultation to understand exactly what you're looking for.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-number">02</div>
+      <h3>The Search</h3>
+      <p>We draw on our network of private collections, auction houses, and dealers.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-number">03</div>
+      <h3>The Verification</h3>
+      <p>Independent inspection, provenance checks, and full condition reporting.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-number">04</div>
+      <h3>The Handover</h3>
+      <p>We handle the paperwork, transport, and delivery — start to finish.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-strip">
+  <p>"I gave them a two-line brief and three weeks later a matching-numbers 250 GT arrived at my door. I never once had to speak to a seller."</p>
+  <span>— Private Client, Surrey</span>
+</section>
+
+<section class="cta-final">
+  <h2>Looking for something specific?</h2>
+  <p>Tell us what you're after. We'll do the rest.</p>
+  <a href="#" class="cta-final-btn">Book a Private Consultation</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Ashford & Vane</h4>
+      <p>Private motorcar brokerage for collectors and enthusiasts. By appointment only.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>+44 (0)20 7946 0234<br>enquiries@ashfordvane.co.uk<br>By appointment, London & Home Counties</p>
+    </div>
+    <div class="footer-col">
+      <h4>Discretion</h4>
+      <p>All enquiries and transactions are handled in strict confidence.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Ashford & Vane. All rights reserved. | <a href="#" style="color:#666;">Privacy Policy</a></p>
+  </div>
+</footer>
+</body>
+</html>

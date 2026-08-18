@@ -1,0 +1,94 @@
+/* ==========================================================================
+   Bivetica — hero refinement (PREVIEW): rotating gold wireframe mesh on cream.
+   Fine gold linework sphere behind/beside the headline, plus typography-led
+   motion and prominent card numbers. Charcoal/ivory/gold palette unchanged.
+   ========================================================================== */
+
+/* Retire the old rotating rings + glow (also removed from markup). */
+.hero-orbit{display:none !important}
+
+/* --- Rotating gold wireframe mesh on the cream canvas --------------------- */
+.hero-mesh{
+  position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 34%);
+  mask-image:linear-gradient(90deg,transparent,#000 34%);   /* fade off the headline */
+}
+
+/* --- Kinetic headline: line-by-line mask reveal --------------------------- */
+.hero .reveal.hero-copy{opacity:1;transform:none;animation:none}
+.hero-title{overflow:visible;letter-spacing:-.03em}
+.hero-title .line{display:block;overflow:hidden;padding-block:.14em;margin-block:-.1em}
+.hero-title .line > span{display:block;transform:translateY(115%);will-change:transform;
+  animation:bvLineUp 1s cubic-bezier(.22,1,.36,1) both}
+.hero-title .line:nth-child(2) > span{animation-delay:.12s}
+@keyframes bvLineUp{to{transform:translateY(0)}}
+
+/* Slow gold shimmer on the accent line */
+.hero-title em{
+  color:transparent;
+  background:linear-gradient(100deg,var(--gold) 18%,var(--gold-soft) 40%,#f1e4c2 50%,var(--gold-soft) 60%,var(--gold) 82%);
+  -webkit-background-clip:text;background-clip:text;background-size:220% 100%;
+  animation:bvShimmer 6.5s ease-in-out 1s infinite;
+}
+@keyframes bvShimmer{0%,100%{background-position:160% 0}50%{background-position:-60% 0}}
+
+/* Staggered entrance for the remaining hero copy */
+.hero-copy .eyebrow,.hero-intro,.hero-actions{animation:bvRise .8s ease both}
+.hero-copy .eyebrow{animation-delay:.15s}
+.hero-intro{animation-delay:.5s}
+.hero-actions{animation-delay:.66s}
+@keyframes bvRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* --- Prominent company-card numbers (and less empty cards) ---------------- */
+.company-card{min-height:520px}
+.card-number{
+  position:absolute;top:26px;right:32px;left:auto;
+  font-family:var(--serif);font-size:clamp(58px,6vw,104px);line-height:1;letter-spacing:0;
+  color:transparent;-webkit-text-stroke:1px var(--gold-soft);text-stroke:1px var(--gold-soft);opacity:.55;
+}
+.studio .card-aura{background:radial-gradient(circle,rgba(169,138,71,.30),transparent 68%)}
+
+/* --- Approach section: more content, tighter rhythm ---------------------- */
+.section-label{margin-bottom:clamp(36px,4.5vw,60px)}
+.manifesto-grid{align-items:start;grid-template-columns:1.1fr .9fr;gap:clamp(44px,4.5vw,80px)}
+.manifesto-tag{margin:26px 0 0;font-size:clamp(15px,1.2vw,18px);line-height:1.55;color:#6c675f;max-width:440px}
+.manifesto-copy{align-self:start;max-width:540px}
+.principles{grid-template-columns:repeat(4,1fr);margin-top:clamp(58px,7vw,88px)}
+.principle{min-height:auto;padding:28px 3vw 0 0}
+.principle span{line-height:1.55}
+
+/* --- Contact form -------------------------------------------------------- */
+.contact-grid{align-items:start;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,90px)}
+.contact-lead p{color:#625e56;font-size:18px;line-height:1.6;margin:26px 0 22px;max-width:400px}
+.contact-email{font-family:var(--serif);font-size:clamp(20px,1.8vw,26px);color:var(--gold);
+  text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
+.contact-email:hover,.contact-email:focus-visible{border-color:var(--gold)}
+.contact-form{display:flex;flex-direction:column;gap:22px;max-width:470px;position:relative}
+.contact-form .field{display:flex;flex-direction:column;gap:8px}
+.contact-form label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6c675f;font-weight:700}
+.contact-form input,.contact-form textarea{
+  border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);
+  font-family:var(--sans);font-size:16px;padding:9px 2px;outline:none;border-radius:0;transition:border-color .3s}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold)}
+.contact-form textarea{resize:vertical;min-height:96px}
+.contact-form button{align-self:flex-start;border:0;cursor:pointer;margin-top:4px}
+.cf-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cf-status{font-size:14px;margin:4px 0 0;min-height:1.2em}
+.cf-status.ok{color:#5a7d3c}
+.cf-status.err{color:#9a3b2f}
+@media(max-width:800px){
+  .principles{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+}
+
+/* --- Reduced motion ------------------------------------------------------- */
+@media(prefers-reduced-motion:reduce){
+  .hero-title .line > span{transform:none;animation:none}
+  .hero-title em{animation:none}
+  .hero-copy .eyebrow,.hero-intro,.hero-actions{animation:none;opacity:1;transform:none}
+}
+
+/* --- Mobile --------------------------------------------------------------- */
+@media(max-width:800px){
+  .hero-mesh{opacity:.5;-webkit-mask-image:none;mask-image:none}
+}

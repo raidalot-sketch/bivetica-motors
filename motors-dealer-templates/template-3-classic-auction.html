@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heritage Auctions - Classic Car Auction House</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: #2a1f1a; background: #f7f3ec; }
+header { background: #4a1f1f; color: #f7f3ec; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #b8935a; }
+.logo { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+.logo span { color: #b8935a; }
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { color: #f7f3ec; text-decoration: none; font-size: 13px; letter-spacing: 0.5px; }
+nav a:hover { color: #b8935a; }
+.reg-btn { background: #b8935a; color: #2a1f1a; padding: 8px 18px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+
+.hero { background: #2a1f1a; color: #f7f3ec; padding: 3rem 2rem; text-align: center; }
+.hero-eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #b8935a; margin-bottom: 1rem; }
+.hero h1 { font-size: 42px; font-weight: 400; margin-bottom: 0.5rem; }
+.hero p { font-size: 15px; opacity: 0.85; margin-bottom: 1.5rem; }
+.auction-meta { display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap; }
+.auction-meta-item { text-align: center; }
+.auction-meta-value { font-size: 28px; color: #b8935a; font-weight: 700; }
+.auction-meta-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; }
+
+.featured-lot { padding: 3rem 2rem; background: #fff; border-top: 1px solid #e0d5c3; border-bottom: 1px solid #e0d5c3; }
+.lot-number-badge { display: inline-block; background: #4a1f1f; color: #f7f3ec; padding: 6px 16px; font-size: 12px; letter-spacing: 2px; margin-bottom: 1rem; }
+.lot-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; align-items: start; }
+.lot-image { background: #e0d5c3; height: 380px; display: flex; align-items: center; justify-content: center; color: #8a7660; font-size: 14px; border: 1px solid #d0c3ab; }
+.lot-title { font-size: 30px; margin-bottom: 0.5rem; }
+.lot-subtitle { font-size: 14px; color: #8a7660; margin-bottom: 1.5rem; font-style: italic; }
+.lot-specs-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+.lot-specs-table td { padding: 0.6rem 0; border-bottom: 1px solid #e0d5c3; font-size: 14px; }
+.lot-specs-table td:first-child { color: #8a7660; width: 40%; }
+.lot-specs-table td:last-child { font-weight: 700; }
+.estimate-box { background: #f7f3ec; border: 1px solid #d0c3ab; padding: 1.25rem; margin-bottom: 1.5rem; }
+.estimate-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8a7660; margin-bottom: 0.25rem; }
+.estimate-value { font-size: 24px; font-weight: 700; color: #4a1f1f; }
+.reserve-note { font-size: 12px; color: #8a7660; margin-top: 0.5rem; }
+.lot-btn { display: inline-block; padding: 12px 32px; background: #4a1f1f; color: #f7f3ec; text-decoration: none; font-weight: 700; letter-spacing: 1px; font-size: 13px; text-transform: uppercase; }
+.lot-btn:hover { background: #3a1515; }
+
+.catalog { padding: 3rem 2rem; }
+.catalog-title { text-align: center; font-size: 30px; margin-bottom: 0.5rem; }
+.catalog-subtitle { text-align: center; font-size: 14px; color: #8a7660; margin-bottom: 2rem; }
+.catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+.catalog-item { background: #fff; border: 1px solid #e0d5c3; }
+.catalog-item-img { width: 100%; height: 170px; background: #e0d5c3; display: flex; align-items: center; justify-content: center; color: #8a7660; font-size: 12px; position: relative; }
+.catalog-lot-tag { position: absolute; top: 10px; left: 10px; background: #4a1f1f; color: #f7f3ec; padding: 4px 10px; font-size: 11px; letter-spacing: 1px; }
+.catalog-item-info { padding: 1.25rem; }
+.catalog-item-name { font-size: 16px; font-weight: 700; margin-bottom: 0.5rem; }
+.catalog-item-estimate { font-size: 13px; color: #8a7660; margin-bottom: 0.25rem; }
+.catalog-item-estimate strong { color: #4a1f1f; }
+
+footer { background: #2a1f1a; color: #d0c3ab; padding: 2.5rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 1.5rem; max-width: 1100px; margin-left: auto; margin-right: auto; }
+.footer-col h4 { color: #b8935a; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.75rem; }
+.footer-col p { font-size: 13px; line-height: 1.8; }
+.footer-col a { color: #d0c3ab; text-decoration: none; }
+.footer-bottom { border-top: 1px solid #4a1f1f; padding-top: 1rem; text-align: center; font-size: 12px; max-width: 1100px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  .lot-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">HERITAGE <span>AUCTIONS</span></div>
+  <nav>
+    <a href="#featured">Featured Lot</a>
+    <a href="#catalog">Full Catalogue</a>
+    <a href="#how-it-works">How Bidding Works</a>
+    <a href="#" class="reg-btn">Register to Bid</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Autumn Sale · 12 September 2026</div>
+  <h1>The Heritage Classic Car Auction</h1>
+  <p>A curated sale of exceptional classic and historic motorcars</p>
+  <div class="auction-meta">
+    <div class="auction-meta-item">
+      <div class="auction-meta-value">42</div>
+      <div class="auction-meta-label">Lots on offer</div>
+    </div>
+    <div class="auction-meta-item">
+      <div class="auction-meta-value">£8.4m</div>
+      <div class="auction-meta-label">Total low estimate</div>
+    </div>
+    <div class="auction-meta-item">
+      <div class="auction-meta-value">14 Days</div>
+      <div class="auction-meta-label">Until sale closes</div>
+    </div>
+  </div>
+</section>
+
+<section class="featured-lot" id="featured">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div class="lot-number-badge">LOT 07</div>
+    <div class="lot-grid">
+      <div class="lot-image">[Image: 1964 Aston Martin DB5]</div>
+      <div>
+        <div class="lot-title">1964 Aston Martin DB5</div>
+        <div class="lot-subtitle">Matching numbers · Single family ownership since 1979</div>
+        <table class="lot-specs-table">
+          <tr><td>Chassis Number</td><td>DB5/1486/R</td></tr>
+          <tr><td>Engine</td><td>4.0L Straight-6, 282 bhp</td></tr>
+          <tr><td>Transmission</td><td>5-speed manual</td></tr>
+          <tr><td>Colour</td><td>Silver Birch over Red</td></tr>
+          <tr><td>Mileage</td><td>68,400 (believed genuine)</td></tr>
+          <tr><td>Provenance</td><td>Full history file, FIVA passport</td></tr>
+        </table>
+        <div class="estimate-box">
+          <div class="estimate-label">Pre-sale estimate</div>
+          <div class="estimate-value">£650,000 – £750,000</div>
+          <div class="reserve-note">Reserve not disclosed. Subject to seller's terms.</div>
+        </div>
+        <a href="#" class="lot-btn">Register to Bid on This Lot</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="catalog-title">Sale Catalogue</div>
+  <div class="catalog-subtitle">Browse all lots in the Autumn Sale</div>
+  <div class="catalog-grid">
+    <div class="catalog-item">
+      <div class="catalog-item-img"><div class="catalog-lot-tag">LOT 01</div>[Image]</div>
+      <div class="catalog-item-info">
+        <div class="catalog-item-name">1957 Mercedes 300SL Roadster</div>
+        <div class="catalog-item-estimate">Estimate: <strong>£850,000 – £950,000</strong></div>
+      </div>
+    </div>
+    <div class="catalog-item">
+      <div class="catalog-item-img"><div class="catalog-lot-tag">LOT 03</div>[Image]</div>
+      <div class="catalog-item-info">
+        <div class="catalog-item-name">1969 Porsche 911S Targa</div>
+        <div class="catalog-item-estimate">Estimate: <strong>£145,000 – £175,000</strong></div>
+      </div>
+    </div>
+    <div class="catalog-item">
+      <div class="catalog-item-img"><div class="catalog-lot-tag">LOT 09</div>[Image]</div>
+      <div class="catalog-item-info">
+        <div class="catalog-item-name">1930 Bentley 4½ Litre</div>
+        <div class="catalog-item-estimate">Estimate: <strong>£420,000 – £480,000</strong></div>
+      </div>
+    </div>
+    <div class="catalog-item">
+      <div class="catalog-item-img"><div class="catalog-lot-tag">LOT 12</div>[Image]</div>
+      <div class="catalog-item-info">
+        <div class="catalog-item-name">1972 Ferrari Dino 246 GT</div>
+        <div class="catalog-item-estimate">Estimate: <strong>£310,000 – £360,000</strong></div>
+      </div>
+    </div>
+    <div class="catalog-item">
+      <div class="catalog-item-img"><div class="catalog-lot-tag">LOT 18</div>[Image]</div>
+      <div class="catalog-item-info">
+        <div class="catalog-item-name">1966 Jaguar E-Type Series 1</div>
+        <div class="catalog-item-estimate">Estimate: <strong>£165,000 – £195,000</strong></div>
+      </div>
+    </div>
+    <div class="catalog-item">
+      <div class="catalog-item-img"><div class="catalog-lot-tag">LOT 24</div>[Image]</div>
+      <div class="catalog-item-info">
+        <div class="catalog-item-name">1953 Jaguar XK120</div>
+        <div class="catalog-item-estimate">Estimate: <strong>£98,000 – £120,000</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="how-it-works">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Heritage Auctions</h4>
+      <p>Specialist classic and historic car auctioneers, conducting sales since 1994.</p>
+    </div>
+    <div class="footer-col">
+      <h4>How Bidding Works</h4>
+      <p>Register in advance, view lots by appointment, bid live in the room, by phone, or online. Buyer's premium applies.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>The Old Coach House, Cheltenham<br>+44 (0)1242 555 019<br>enquiries@heritageauctions.co.uk</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Heritage Auctions. All rights reserved. | <a href="#" style="color:#b8935a;">Privacy Policy</a> | <a href="#" style="color:#b8935a;">Terms of Sale</a></p>
+  </div>
+</footer>
+</body>
+</html>

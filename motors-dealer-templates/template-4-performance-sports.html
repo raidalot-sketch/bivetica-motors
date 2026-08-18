@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuit Performance - Sports Car Dealer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; background: #0f0f0f; }
+header { background: #1a1a1a; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #c41e3a; }
+.logo { font-size: 24px; font-weight: 700; letter-spacing: -1px; }
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; }
+nav a:hover { color: #c41e3a; }
+.contact-badge { background: #c41e3a; color: white; padding: 8px 16px; border-radius: 2px; font-weight: 600; font-size: 12px; }
+
+.hero { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 3rem 2rem; text-align: center; }
+.hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 0.5rem; }
+.hero p { font-size: 18px; opacity: 0.9; margin-bottom: 2rem; }
+.search-section { max-width: 900px; margin: 0 auto 2rem; }
+.search-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.search-input { padding: 12px; background: #2d2d2d; border: 1px solid #444; color: white; border-radius: 4px; font-size: 14px; }
+.search-btn { grid-column: 1 / -1; padding: 14px; background: #c41e3a; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 15px; }
+.search-btn:hover { background: #a01730; }
+
+.specs-showcase { background: #1a1a1a; color: white; padding: 3rem 2rem; }
+.specs-title { text-align: center; font-size: 32px; font-weight: 300; margin-bottom: 2rem; }
+.specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+.spec-card { background: #2d2d2d; padding: 2rem; border-left: 4px solid #c41e3a; border-radius: 4px; }
+.spec-card h3 { font-size: 24px; margin-bottom: 1rem; color: #c41e3a; }
+.spec-card p { font-size: 14px; line-height: 1.8; opacity: 0.9; }
+
+.featured { padding: 3rem 2rem; background: #0f0f0f; }
+.featured-title { text-align: center; font-size: 32px; color: white; margin-bottom: 2rem; font-weight: 300; }
+.featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+.featured-car { background: #1a1a1a; border-radius: 4px; overflow: hidden; color: white; }
+.car-image { width: 100%; height: 240px; background: #2d2d2d; display: flex; align-items: center; justify-content: center; color: #666; font-size: 14px; }
+.car-content { padding: 1.5rem; }
+.car-year { font-size: 12px; color: #c41e3a; text-transform: uppercase; letter-spacing: 1px; }
+.car-name { font-size: 20px; font-weight: 600; margin: 0.5rem 0; }
+.car-specs { font-size: 13px; color: #aaa; margin: 1rem 0; }
+.spec-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #333; }
+.spec-label { color: #888; }
+.spec-value { font-weight: 600; color: #c41e3a; }
+.car-price { font-size: 22px; font-weight: 700; color: #c41e3a; margin: 1rem 0; }
+.car-btn { display: block; padding: 10px 20px; background: #c41e3a; color: white; text-align: center; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 13px; }
+.car-btn:hover { background: #a01730; }
+
+.inventory { padding: 3rem 2rem; background: #1a1a1a; }
+.inventory-title { text-align: center; font-size: 28px; color: white; margin-bottom: 2rem; }
+.inventory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+.inventory-card { background: #2d2d2d; color: white; border-radius: 4px; overflow: hidden; }
+.inventory-card-img { width: 100%; height: 160px; background: #3d3d3d; }
+.inventory-card-info { padding: 1rem; font-size: 13px; }
+.inventory-card-name { font-weight: 600; margin-bottom: 0.25rem; }
+.inventory-card-price { color: #c41e3a; font-weight: 700; margin-top: 0.5rem; }
+
+footer { background: #0f0f0f; color: #aaa; padding: 2rem; border-top: 1px solid #2d2d2d; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 1.5rem; }
+.footer-col h4 { color: #fff; font-size: 14px; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+.footer-col p { font-size: 13px; line-height: 1.8; }
+.footer-col a { color: #c41e3a; text-decoration: none; }
+.footer-bottom { border-top: 1px solid #2d2d2d; padding-top: 1rem; text-align: center; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">CIRCUIT PERFORMANCE</div>
+  <nav>
+    <a href="#featured">Featured</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#track-days">Track Days</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="contact-badge">+44 121 555 0001</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>High-Performance Sports Cars</h1>
+  <p>Track-tested, adrenaline-fueled machines</p>
+  <div class="search-section">
+    <div class="search-grid">
+      <input type="text" class="search-input" placeholder="Make (e.g., Porsche, Ferrari)">
+      <input type="text" class="search-input" placeholder="Model">
+      <input type="number" class="search-input" placeholder="Min Price (£)">
+      <input type="number" class="search-input" placeholder="Max Price (£)">
+      <input type="number" class="search-input" placeholder="Min Horsepower">
+      <input type="number" class="search-input" placeholder="0-60 Time (sec)">
+      <button class="search-btn">Search Performance Cars</button>
+    </div>
+  </div>
+</section>
+
+<section class="specs-showcase">
+  <div class="specs-title">Performance Matters</div>
+  <div class="specs-grid">
+    <div class="spec-card">
+      <h3>Acceleration</h3>
+      <p>0-60 times matter. Every vehicle listed includes verified acceleration data from track testing or official specs.</p>
+    </div>
+    <div class="spec-card">
+      <h3>Horsepower & Torque</h3>
+      <p>Know exactly what you're getting. All engine specs, power figures, and modifications documented.</p>
+    </div>
+    <div class="spec-card">
+      <h3>Track History</h3>
+      <p>Has it been on track? We document track days, racing history, and track-day fitness.</p>
+    </div>
+    <div class="spec-card">
+      <h3>Maintenance Records</h3>
+      <p>Service history tells the story. Performance cars demand meticulous maintenance logs.</p>
+    </div>
+  </div>
+</section>
+
+<section class="featured" id="featured">
+  <div class="featured-title">Featured Performance Machines</div>
+  <div class="featured-grid">
+    <div class="featured-car">
+      <div class="car-image">[Image: Porsche 911 Turbo]</div>
+      <div class="car-content">
+        <div class="car-year">2018</div>
+        <div class="car-name">Porsche 911 Turbo S</div>
+        <div class="car-specs">
+          <div class="spec-row"><span class="spec-label">0-60:</span><span class="spec-value">2.7 sec</span></div>
+          <div class="spec-row"><span class="spec-label">Horsepower:</span><span class="spec-value">572 bhp</span></div>
+          <div class="spec-row"><span class="spec-label">Top Speed:</span><span class="spec-value">205 mph</span></div>
+          <div class="spec-row"><span class="spec-label">Mileage:</span><span class="spec-value">12,400 miles</span></div>
+        </div>
+        <div class="car-price">£185,000</div>
+        <a href="#" class="car-btn">View Full Specs</a>
+      </div>
+    </div>
+
+    <div class="featured-car">
+      <div class="car-image">[Image: McLaren 720S]</div>
+      <div class="car-content">
+        <div class="car-year">2019</div>
+        <div class="car-name">McLaren 720S</div>
+        <div class="car-specs">
+          <div class="spec-row"><span class="spec-label">0-60:</span><span class="spec-value">2.8 sec</span></div>
+          <div class="spec-row"><span class="spec-label">Horsepower:</span><span class="spec-value">710 bhp</span></div>
+          <div class="spec-row"><span class="spec-label">Top Speed:</span><span class="spec-value">212 mph</span></div>
+          <div class="spec-row"><span class="spec-label">Mileage:</span><span class="spec-value">8,200 miles</span></div>
+        </div>
+        <div class="car-price">£235,000</div>
+        <a href="#" class="car-btn">View Full Specs</a>
+      </div>
+    </div>
+
+    <div class="featured-car">
+      <div class="car-image">[Image: Lamborghini Huracán]</div>
+      <div class="car-content">
+        <div class="car-year">2017</div>
+        <div class="car-name">Lamborghini Huracán</div>
+        <div class="car-specs">
+          <div class="spec-row"><span class="spec-label">0-60:</span><span class="spec-value">2.5 sec</span></div>
+          <div class="spec-row"><span class="spec-label">Horsepower:</span><span class="spec-value">640 bhp</span></div>
+          <div class="spec-row"><span class="spec-label">Top Speed:</span><span class="spec-value">201 mph</span></div>
+          <div class="spec-row"><span class="spec-label">Mileage:</span><span class="spec-value">16,800 miles</span></div>
+        </div>
+        <div class="car-price">£165,000</div>
+        <a href="#" class="car-btn">View Full Specs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inventory" id="inventory">
+  <div class="inventory-title">Complete High-Performance Inventory</div>
+  <div class="inventory-grid">
+    <div class="inventory-card">
+      <div class="inventory-card-img"></div>
+      <div class="inventory-card-info">
+        <div class="inventory-card-name">Corvette C8</div>
+        <div style="color: #888;">2020 • 495 bhp</div>
+        <div class="inventory-card-price">£78,500</div>
+      </div>
+    </div>
+
+    <div class="inventory-card">
+      <div class="inventory-card-img"></div>
+      <div class="inventory-card-info">
+        <div class="inventory-card-name">BMW M440i</div>
+        <div style="color: #888;">2021 • 382 bhp</div>
+        <div class="inventory-card-price">£52,000</div>
+      </div>
+    </div>
+
+    <div class="inventory-card">
+      <div class="inventory-card-img"></div>
+      <div class="inventory-card-info">
+        <div class="inventory-card-name">AMG E63 S</div>
+        <div style="color: #888;">2020 • 603 bhp</div>
+        <div class="inventory-card-price">£95,000</div>
+      </div>
+    </div>
+
+    <div class="inventory-card">
+      <div class="inventory-card-img"></div>
+      <div class="inventory-card-info">
+        <div class="inventory-card-name">Aston Martin DB11</div>
+        <div style="color: #888;">2018 • 507 bhp</div>
+        <div class="inventory-card-price">£125,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Circuit Performance</h4>
+      <p>Specialists in high-performance and sports cars. Track-tested, verified specs, passion-built.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Phone: +44 121 555 0001<br>Email: hello@circuit.co.uk<br>Hours: 9am-6pm Mon-Fri, 10am-3pm Sat</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <p><a href="#">Track Day Support</a><br><a href="#">Performance Upgrades</a><br><a href="#">Race Prep</a><br><a href="#">Track Testing</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Circuit Performance. All rights reserved. | <a href="#" style="color: #c41e3a;">Privacy</a></p>
+  </div>
+</footer>
+</body>
+</html>

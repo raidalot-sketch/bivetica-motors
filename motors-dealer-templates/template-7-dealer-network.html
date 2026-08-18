@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regent Group - Dealer Network</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a2e; background: #fff; }
+header { background: #0d1b3e; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+.logo span { color: #c9a227; }
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { color: #cbd3e6; text-decoration: none; font-size: 13px; }
+nav a:hover { color: #fff; }
+.location-select { background: #16274f; color: #fff; border: 1px solid #2a3d6b; padding: 8px 14px; border-radius: 4px; font-size: 13px; }
+
+.location-picker { background: #f4f5f9; padding: 2.5rem 2rem; text-align: center; }
+.location-picker h1 { font-size: 30px; margin-bottom: 0.5rem; color: #0d1b3e; }
+.location-picker p { font-size: 14px; color: #6b7280; margin-bottom: 1.5rem; }
+.location-search { max-width: 500px; margin: 0 auto; display: flex; gap: 8px; }
+.location-search input { flex: 1; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; }
+.location-search button { background: #0d1b3e; color: #fff; padding: 12px 24px; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+
+.locations-grid { padding: 2.5rem 2rem; }
+.section-title { text-align: center; font-size: 26px; margin-bottom: 2rem; color: #0d1b3e; }
+.loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.loc-card { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+.loc-card-map { width: 100%; height: 140px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 12px; }
+.loc-card-content { padding: 1.25rem; }
+.loc-card-name { font-size: 16px; font-weight: 700; margin-bottom: 0.25rem; color: #0d1b3e; }
+.loc-card-brands { font-size: 12px; color: #c9a227; font-weight: 600; margin-bottom: 0.5rem; }
+.loc-card-address { font-size: 13px; color: #6b7280; margin-bottom: 0.75rem; }
+.loc-card-stock { font-size: 13px; color: #0d1b3e; font-weight: 600; margin-bottom: 0.75rem; }
+.loc-card-btn { display: block; text-align: center; padding: 9px; background: #f4f5f9; color: #0d1b3e; text-decoration: none; border-radius: 4px; font-size: 13px; font-weight: 700; }
+.loc-card-btn:hover { background: #e5e7eb; }
+.loc-card.active { border-color: #c9a227; border-width: 2px; }
+.loc-badge { display: inline-block; background: #c9a227; color: #0d1b3e; font-size: 10px; padding: 3px 10px; border-radius: 3px; font-weight: 700; margin-bottom: 0.5rem; }
+
+.featured-at-location { background: #f4f5f9; padding: 2.5rem 2rem; }
+.location-context { text-align: center; margin-bottom: 2rem; }
+.location-context h2 { font-size: 24px; color: #0d1b3e; }
+.location-context p { font-size: 13px; color: #6b7280; }
+.featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.vehicle-card { background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; }
+.vehicle-image { width: 100%; height: 180px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 13px; }
+.vehicle-info { padding: 1.25rem; }
+.vehicle-name { font-size: 15px; font-weight: 700; margin-bottom: 0.5rem; }
+.vehicle-specs { font-size: 12px; color: #6b7280; margin-bottom: 0.5rem; }
+.vehicle-price { font-size: 17px; font-weight: 700; color: #0d1b3e; }
+.vehicle-location-tag { font-size: 11px; color: #c9a227; margin-top: 0.5rem; font-weight: 600; }
+
+footer { background: #0d1b3e; color: #9aa4c4; padding: 2.5rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto 1.5rem; }
+.footer-col h4 { color: #fff; font-size: 13px; margin-bottom: 0.75rem; }
+.footer-col p { font-size: 12px; line-height: 1.8; }
+.footer-col a { color: #9aa4c4; text-decoration: none; }
+.footer-bottom { border-top: 1px solid #1e2f52; padding-top: 1rem; text-align: center; font-size: 12px; max-width: 1100px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">REGENT <span>GROUP</span></div>
+  <nav>
+    <a href="#">All Stock</a>
+    <a href="#">Brands</a>
+    <a href="#">About</a>
+    <select class="location-select"><option>📍 Birmingham (current)</option><option>Manchester</option><option>Leeds</option><option>Bristol</option></select>
+  </nav>
+</header>
+
+<section class="location-picker">
+  <h1>Find Your Nearest Regent Showroom</h1>
+  <p>6 locations across the UK, 1,200+ vehicles in the network</p>
+  <div class="location-search">
+    <input type="text" placeholder="Enter your postcode">
+    <button>Find nearest</button>
+  </div>
+</section>
+
+<section class="locations-grid">
+  <div class="section-title">Our Showrooms</div>
+  <div class="loc-grid">
+    <div class="loc-card active">
+      <div class="loc-badge">CLOSEST — 2.1 MILES</div>
+      <div class="loc-card-map">[Map: Birmingham]</div>
+      <div class="loc-card-content">
+        <div class="loc-card-name">Regent Birmingham</div>
+        <div class="loc-card-brands">BMW · MINI · Volvo</div>
+        <div class="loc-card-address">142 Bristol Road, Birmingham, B5 7SA</div>
+        <div class="loc-card-stock">218 vehicles in stock</div>
+        <a href="#" class="loc-card-btn">View Birmingham Stock</a>
+      </div>
+    </div>
+
+    <div class="loc-card">
+      <div class="loc-card-map">[Map: Manchester]</div>
+      <div class="loc-card-content">
+        <div class="loc-card-name">Regent Manchester</div>
+        <div class="loc-card-brands">Audi · SEAT · Škoda</div>
+        <div class="loc-card-address">88 Chester Road, Manchester, M15 4EX</div>
+        <div class="loc-card-stock">196 vehicles in stock</div>
+        <a href="#" class="loc-card-btn">View Manchester Stock</a>
+      </div>
+    </div>
+
+    <div class="loc-card">
+      <div class="loc-card-map">[Map: Leeds]</div>
+      <div class="loc-card-content">
+        <div class="loc-card-name">Regent Leeds</div>
+        <div class="loc-card-brands">Mercedes-Benz · Smart</div>
+        <div class="loc-card-address">21 Kirkstall Road, Leeds, LS3 1HG</div>
+        <div class="loc-card-stock">174 vehicles in stock</div>
+        <a href="#" class="loc-card-btn">View Leeds Stock</a>
+      </div>
+    </div>
+
+    <div class="loc-card">
+      <div class="loc-card-map">[Map: Bristol]</div>
+      <div class="loc-card-content">
+        <div class="loc-card-name">Regent Bristol</div>
+        <div class="loc-card-brands">Volkswagen · Cupra</div>
+        <div class="loc-card-address">55 Coronation Road, Bristol, BS3 1AR</div>
+        <div class="loc-card-stock">203 vehicles in stock</div>
+        <a href="#" class="loc-card-btn">View Bristol Stock</a>
+      </div>
+    </div>
+
+    <div class="loc-card">
+      <div class="loc-card-map">[Map: Nottingham]</div>
+      <div class="loc-card-content">
+        <div class="loc-card-name">Regent Nottingham</div>
+        <div class="loc-card-brands">Jaguar · Land Rover</div>
+        <div class="loc-card-address">7 Castle Boulevard, Nottingham, NG7 1FG</div>
+        <div class="loc-card-stock">168 vehicles in stock</div>
+        <a href="#" class="loc-card-btn">View Nottingham Stock</a>
+      </div>
+    </div>
+
+    <div class="loc-card">
+      <div class="loc-card-map">[Map: Reading]</div>
+      <div class="loc-card-content">
+        <div class="loc-card-name">Regent Reading</div>
+        <div class="loc-card-brands">Multi-brand Approved Used</div>
+        <div class="loc-card-address">33 Oxford Road, Reading, RG1 7QF</div>
+        <div class="loc-card-stock">241 vehicles in stock</div>
+        <a href="#" class="loc-card-btn">View Reading Stock</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured-at-location">
+  <div class="location-context">
+    <h2>Featured at Regent Birmingham</h2>
+    <p>Currently viewing stock from your nearest showroom</p>
+  </div>
+  <div class="featured-grid">
+    <div class="vehicle-card">
+      <div class="vehicle-image">[Image: BMW 3 Series]</div>
+      <div class="vehicle-info">
+        <div class="vehicle-name">2022 BMW 320i M Sport</div>
+        <div class="vehicle-specs">2.0L • 8,400 miles • Auto</div>
+        <div class="vehicle-price">£28,995</div>
+        <div class="vehicle-location-tag">📍 Regent Birmingham</div>
+      </div>
+    </div>
+    <div class="vehicle-card">
+      <div class="vehicle-image">[Image: MINI Cooper]</div>
+      <div class="vehicle-info">
+        <div class="vehicle-name">2021 MINI Cooper S</div>
+        <div class="vehicle-specs">2.0L • 12,100 miles • Auto</div>
+        <div class="vehicle-price">£19,750</div>
+        <div class="vehicle-location-tag">📍 Regent Birmingham</div>
+      </div>
+    </div>
+    <div class="vehicle-card">
+      <div class="vehicle-image">[Image: Volvo XC60]</div>
+      <div class="vehicle-info">
+        <div class="vehicle-name">2020 Volvo XC60 R-Design</div>
+        <div class="vehicle-specs">2.0L Hybrid • 19,600 miles</div>
+        <div class="vehicle-price">£32,500</div>
+        <div class="vehicle-location-tag">📍 Regent Birmingham</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Regent Group</h4>
+      <p>6 dealerships, 12 brands, one trusted network across the UK.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Showrooms</h4>
+      <p><a href="#">Birmingham</a><br><a href="#">Manchester</a><br><a href="#">Leeds</a><br><a href="#">Bristol</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Buy</h4>
+      <p><a href="#">Search all stock</a><br><a href="#">Finance</a><br><a href="#">Part exchange</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <p><a href="#">About us</a><br><a href="#">Careers</a><br><a href="#">Contact</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Regent Group. All rights reserved. | <a href="#" style="color:#9aa4c4;">Privacy Policy</a></p>
+  </div>
+</footer>
+</body>
+</html>

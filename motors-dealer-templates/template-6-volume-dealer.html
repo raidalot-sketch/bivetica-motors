@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nationwide Motors - 800+ Cars In Stock</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1f2937; background: #f4f6f8; }
+header { background: #14213d; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 22px; font-weight: 700; }
+.logo span { color: #4d9fff; }
+nav { display: flex; gap: 1.75rem; align-items: center; }
+nav a { color: #cbd5e1; text-decoration: none; font-size: 13px; }
+nav a:hover { color: #fff; }
+.stock-count { background: #4d9fff; color: #14213d; padding: 8px 16px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+
+.search-hero { background: #14213d; padding: 0 2rem 2rem; }
+.search-bar-main { background: #fff; border-radius: 8px; padding: 1.25rem; max-width: 1100px; margin: 0 auto; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+.search-row { display: grid; grid-template-columns: repeat(5, 1fr) auto; gap: 10px; }
+.search-row select, .search-row input { padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 13px; }
+.search-row button { background: #4d9fff; color: #fff; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 13px; }
+.search-row button:hover { background: #3a8ae8; }
+
+.body-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1.5rem; max-width: 1300px; margin: 2rem auto; padding: 0 2rem; }
+.filters-sidebar { background: #fff; border-radius: 8px; padding: 1.25rem; height: fit-content; border: 1px solid #e2e8f0; }
+.filter-group { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #eef1f5; }
+.filter-group:last-child { border-bottom: none; }
+.filter-group h4 { font-size: 13px; margin-bottom: 0.75rem; color: #14213d; }
+.filter-checkbox { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 0.5rem; color: #4b5563; }
+.filter-range { display: flex; gap: 8px; }
+.filter-range input { width: 100%; padding: 6px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 12px; }
+
+.results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+.results-count { font-size: 15px; font-weight: 700; color: #14213d; }
+.results-sort select { padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 13px; }
+
+.results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.result-card { background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; transition: box-shadow 0.2s; }
+.result-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.result-image { width: 100%; height: 170px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 12px; position: relative; }
+.result-badge { position: absolute; top: 10px; left: 10px; background: #16a34a; color: #fff; padding: 3px 10px; font-size: 11px; border-radius: 3px; font-weight: 600; }
+.result-info { padding: 1rem; }
+.result-title { font-size: 15px; font-weight: 700; margin-bottom: 0.35rem; }
+.result-specs { font-size: 12px; color: #6b7280; margin-bottom: 0.5rem; }
+.result-price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; }
+.result-price { font-size: 17px; font-weight: 700; color: #14213d; }
+.result-monthly { font-size: 11px; color: #6b7280; }
+.result-btn { display: block; margin-top: 0.75rem; text-align: center; padding: 8px; background: #f4f6f8; color: #14213d; text-decoration: none; border-radius: 4px; font-size: 12px; font-weight: 700; }
+.result-btn:hover { background: #e2e8f0; }
+
+.load-more { text-align: center; margin: 2rem 0; }
+.load-more button { padding: 12px 40px; background: #14213d; color: #fff; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; }
+
+footer { background: #14213d; color: #94a3b8; padding: 2rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1300px; margin: 0 auto 1.5rem; }
+.footer-col h4 { color: #fff; font-size: 13px; margin-bottom: 0.75rem; }
+.footer-col p { font-size: 12px; line-height: 1.8; }
+.footer-col a { color: #94a3b8; text-decoration: none; }
+.footer-bottom { border-top: 1px solid #1e2f52; padding-top: 1rem; text-align: center; font-size: 12px; max-width: 1300px; margin: 0 auto; }
+
+@media (max-width: 900px) {
+  .body-layout { grid-template-columns: 1fr; }
+  .search-row { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">NATIONWIDE <span>MOTORS</span></div>
+  <nav>
+    <a href="#">All Stock</a>
+    <a href="#">Finance</a>
+    <a href="#">Part Exchange</a>
+    <a href="#">Locations</a>
+    <a href="#" class="stock-count">834 cars in stock</a>
+  </nav>
+</header>
+
+<div class="search-hero">
+  <div class="search-bar-main">
+    <div class="search-row">
+      <select><option>Any make</option></select>
+      <select><option>Any model</option></select>
+      <select><option>Any body type</option></select>
+      <input type="number" placeholder="Max price (£)">
+      <input type="number" placeholder="Max mileage">
+      <button>Search 834 cars</button>
+    </div>
+  </div>
+</div>
+
+<div class="body-layout">
+  <aside class="filters-sidebar">
+    <div class="filter-group">
+      <h4>Price Range</h4>
+      <div class="filter-range">
+        <input type="number" placeholder="Min">
+        <input type="number" placeholder="Max">
+      </div>
+    </div>
+    <div class="filter-group">
+      <h4>Body Type</h4>
+      <div class="filter-checkbox"><input type="checkbox"> Hatchback (241)</div>
+      <div class="filter-checkbox"><input type="checkbox"> SUV (198)</div>
+      <div class="filter-checkbox"><input type="checkbox"> Saloon (156)</div>
+      <div class="filter-checkbox"><input type="checkbox"> Estate (89)</div>
+      <div class="filter-checkbox"><input type="checkbox"> Convertible (34)</div>
+    </div>
+    <div class="filter-group">
+      <h4>Fuel Type</h4>
+      <div class="filter-checkbox"><input type="checkbox"> Petrol (412)</div>
+      <div class="filter-checkbox"><input type="checkbox"> Diesel (287)</div>
+      <div class="filter-checkbox"><input type="checkbox"> Hybrid (98)</div>
+      <div class="filter-checkbox"><input type="checkbox"> Electric (37)</div>
+    </div>
+    <div class="filter-group">
+      <h4>Transmission</h4>
+      <div class="filter-checkbox"><input type="checkbox"> Automatic (401)</div>
+      <div class="filter-checkbox"><input type="checkbox"> Manual (433)</div>
+    </div>
+    <div class="filter-group">
+      <h4>Year</h4>
+      <div class="filter-range">
+        <input type="number" placeholder="From">
+        <input type="number" placeholder="To">
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="results-header">
+      <div class="results-count">834 vehicles found</div>
+      <div class="results-sort">
+        <select><option>Sort: Newest arrivals</option><option>Price: Low to high</option><option>Price: High to low</option><option>Mileage: Low to high</option></select>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-image"><div class="result-badge">JUST IN</div>[Image]</div>
+        <div class="result-info">
+          <div class="result-title">2021 Vauxhall Corsa SRi</div>
+          <div class="result-specs">1.2L • 14,200 miles • Automatic • Red</div>
+          <div class="result-price-row">
+            <div><div class="result-price">£13,499</div><div class="result-monthly">£229/mo representative</div></div>
+          </div>
+          <a href="#" class="result-btn">View Vehicle</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-image">[Image]</div>
+        <div class="result-info">
+          <div class="result-title">2020 Toyota Yaris Hybrid</div>
+          <div class="result-specs">1.5L Hybrid • 22,800 miles • Auto • Silver</div>
+          <div class="result-price-row">
+            <div><div class="result-price">£15,995</div><div class="result-monthly">£262/mo representative</div></div>
+          </div>
+          <a href="#" class="result-btn">View Vehicle</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-image"><div class="result-badge">JUST IN</div>[Image]</div>
+        <div class="result-info">
+          <div class="result-title">2022 Kia Sportage GT-Line</div>
+          <div class="result-specs">1.6L • 9,100 miles • Auto • Grey</div>
+          <div class="result-price-row">
+            <div><div class="result-price">£24,750</div><div class="result-monthly">£398/mo representative</div></div>
+          </div>
+          <a href="#" class="result-btn">View Vehicle</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-image">[Image]</div>
+        <div class="result-info">
+          <div class="result-title">2019 BMW 3 Series 320d M Sport</div>
+          <div class="result-specs">2.0L Diesel • 34,600 miles • Auto • Black</div>
+          <div class="result-price-row">
+            <div><div class="result-price">£19,499</div><div class="result-monthly">£315/mo representative</div></div>
+          </div>
+          <a href="#" class="result-btn">View Vehicle</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-image">[Image]</div>
+        <div class="result-info">
+          <div class="result-title">2021 Ford Puma ST-Line</div>
+          <div class="result-specs">1.0L EcoBoost • 16,300 miles • Manual • Blue</div>
+          <div class="result-price-row">
+            <div><div class="result-price">£17,250</div><div class="result-monthly">£279/mo representative</div></div>
+          </div>
+          <a href="#" class="result-btn">View Vehicle</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-image">[Image]</div>
+        <div class="result-info">
+          <div class="result-title">2020 Nissan Leaf Acenta</div>
+          <div class="result-specs">Electric • 39kWh • 19,400 miles • White</div>
+          <div class="result-price-row">
+            <div><div class="result-price">£14,995</div><div class="result-monthly">£246/mo representative</div></div>
+          </div>
+          <a href="#" class="result-btn">View Vehicle</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="load-more"><button>Load 24 more vehicles</button></div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Nationwide Motors</h4>
+      <p>The UK's largest independent used car network. 834 vehicles across 6 sites.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Buy</h4>
+      <p><a href="#">Search all stock</a><br><a href="#">Finance calculator</a><br><a href="#">Part exchange</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <p><a href="#">About us</a><br><a href="#">Locations</a><br><a href="#">Reviews</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <p><a href="#">Contact us</a><br><a href="#">Warranty</a><br><a href="#">FAQs</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Nationwide Motors. All rights reserved. | <a href="#" style="color:#94a3b8;">Privacy Policy</a></p>
+  </div>
+</footer>
+</body>
+</html>

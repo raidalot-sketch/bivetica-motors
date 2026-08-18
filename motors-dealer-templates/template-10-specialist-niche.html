@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Albion Marque - British Classic Specialists</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1c2b1e; background: #f6f5f0; }
+header { background: #0d3320; color: #fff; padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+.logo span { color: #c9a961; }
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { color: #d3ddd2; text-decoration: none; font-size: 13px; }
+nav a:hover { color: #c9a961; }
+.contact-btn { background: #c9a961; color: #0d3320; padding: 8px 18px; border-radius: 3px; font-weight: 700; font-size: 12px; }
+
+.hero { background: #0d3320; color: #fff; padding: 3rem 2rem 4rem; text-align: center; }
+.hero-badge { display: inline-block; border: 1px solid #c9a961; color: #c9a961; padding: 5px 16px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.25rem; }
+.hero h1 { font-size: 38px; font-weight: 400; margin-bottom: 1rem; }
+.hero p { font-size: 15px; opacity: 0.85; max-width: 550px; margin: 0 auto; line-height: 1.7; }
+
+.specialization { background: #f6f5f0; padding: 3rem 2rem; }
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; text-align: center; }
+.spec-card h3 { font-size: 16px; color: #0d3320; margin-bottom: 0.75rem; }
+.spec-card p { font-size: 13px; color: #5a6b58; line-height: 1.7; }
+
+.category-filter { background: #fff; padding: 1.5rem 2rem; border-top: 1px solid #e0ddd0; border-bottom: 1px solid #e0ddd0; text-align: center; }
+.category-tabs { display: inline-flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.category-tab { padding: 10px 20px; border: 1px solid #d0cdb8; border-radius: 20px; font-size: 13px; color: #5a6b58; cursor: pointer; background: #fff; }
+.category-tab.active { background: #0d3320; color: #fff; border-color: #0d3320; }
+
+.marque-grid { padding: 3rem 2rem; }
+.section-title { text-align: center; font-size: 28px; color: #0d3320; margin-bottom: 0.5rem; }
+.section-subtitle { text-align: center; font-size: 14px; color: #5a6b58; margin-bottom: 2rem; }
+.vehicles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.vehicle-card { background: #fff; border: 1px solid #e0ddd0; border-radius: 6px; overflow: hidden; }
+.vehicle-image { width: 100%; height: 200px; background: #e0ddd0; display: flex; align-items: center; justify-content: center; color: #8a9488; font-size: 13px; position: relative; }
+.marque-tag { position: absolute; top: 12px; left: 12px; background: #0d3320; color: #c9a961; padding: 4px 12px; font-size: 11px; letter-spacing: 1px; border-radius: 3px; }
+.vehicle-info { padding: 1.25rem; }
+.vehicle-name { font-size: 17px; font-weight: 700; color: #0d3320; margin-bottom: 0.5rem; }
+.vehicle-detail-table { width: 100%; font-size: 12px; margin: 0.75rem 0; }
+.vehicle-detail-table td { padding: 4px 0; color: #5a6b58; border-bottom: 1px solid #f0efe6; }
+.vehicle-detail-table td:last-child { text-align: right; font-weight: 600; color: #1c2b1e; }
+.vehicle-price { font-size: 19px; font-weight: 700; color: #0d3320; margin: 0.75rem 0; }
+.authenticity-badge { display: inline-block; background: #f0efe6; color: #0d3320; padding: 4px 10px; font-size: 11px; border-radius: 3px; margin-bottom: 0.75rem; }
+.vehicle-btn { display: block; text-align: center; padding: 10px; background: #0d3320; color: #fff; text-decoration: none; border-radius: 4px; font-size: 13px; font-weight: 700; }
+.vehicle-btn:hover { background: #0a2818; }
+
+.expertise { background: #0d3320; color: #fff; padding: 3rem 2rem; }
+.expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 1000px; margin: 0 auto; align-items: center; }
+.expertise-content h2 { font-size: 26px; margin-bottom: 1rem; }
+.expertise-content p { font-size: 14px; opacity: 0.85; line-height: 1.8; margin-bottom: 1rem; }
+.expertise-stats { display: flex; gap: 2rem; margin-top: 1.5rem; }
+.expertise-stat-value { font-size: 26px; color: #c9a961; font-weight: 700; }
+.expertise-stat-label { font-size: 11px; opacity: 0.7; }
+.expertise-image { background: #164024; height: 260px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #4a6b4e; font-size: 13px; }
+
+footer { background: #0a2818; color: #a8b8a6; padding: 2.5rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto 1.5rem; }
+.footer-col h4 { color: #c9a961; font-size: 13px; margin-bottom: 0.75rem; }
+.footer-col p { font-size: 13px; line-height: 1.8; }
+.footer-col a { color: #a8b8a6; text-decoration: none; }
+.footer-bottom { border-top: 1px solid #164024; padding-top: 1rem; text-align: center; font-size: 12px; max-width: 1000px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  .spec-grid { grid-template-columns: 1fr; }
+  .expertise-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">ALBION <span>MARQUE</span></div>
+  <nav>
+    <a href="#collection">Collection</a>
+    <a href="#expertise">Our Expertise</a>
+    <a href="#restoration">Restoration</a>
+    <a href="#" class="contact-btn">Enquire</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">British Marque Specialists</div>
+  <h1>Devoted exclusively to British classics</h1>
+  <p>Jaguar, Aston Martin, MG, Triumph and Austin-Healey — sourced, verified, and restored by people who know these cars inside out.</p>
+</section>
+
+<section class="specialization">
+  <div class="spec-grid">
+    <div class="spec-card">
+      <h3>Marque Expertise</h3>
+      <p>Over 30 years focused solely on British classic manufacturers. We know the difference between original and replacement.</p>
+    </div>
+    <div class="spec-card">
+      <h3>Authenticity Verified</h3>
+      <p>Every vehicle checked against chassis records, factory build sheets, and marque club registers.</p>
+    </div>
+    <div class="spec-card">
+      <h3>In-House Restoration</h3>
+      <p>Our own workshop restores using period-correct parts and techniques, not generic classic car repair.</p>
+    </div>
+  </div>
+</section>
+
+<section class="category-filter">
+  <div class="category-tabs">
+    <div class="category-tab active">All Marques</div>
+    <div class="category-tab">Jaguar</div>
+    <div class="category-tab">Aston Martin</div>
+    <div class="category-tab">MG</div>
+    <div class="category-tab">Triumph</div>
+    <div class="category-tab">Austin-Healey</div>
+  </div>
+</section>
+
+<section class="marque-grid" id="collection">
+  <div class="section-title">The Current Collection</div>
+  <div class="section-subtitle">Every vehicle verified against original factory records</div>
+  <div class="vehicles-grid">
+    <div class="vehicle-card">
+      <div class="vehicle-image"><div class="marque-tag">JAGUAR</div>[Image: E-Type Series 1]</div>
+      <div class="vehicle-info">
+        <div class="authenticity-badge">✓ Heritage Certificate verified</div>
+        <div class="vehicle-name">1965 Jaguar E-Type Series 1 4.2</div>
+        <table class="vehicle-detail-table">
+          <tr><td>Chassis</td><td>1E30651</td></tr>
+          <tr><td>Colour</td><td>Opalescent Silver Blue</td></tr>
+          <tr><td>Interior</td><td>Original Red Leather</td></tr>
+        </table>
+        <div class="vehicle-price">£178,500</div>
+        <a href="#" class="vehicle-btn">View Full History</a>
+      </div>
+    </div>
+
+    <div class="vehicle-card">
+      <div class="vehicle-image"><div class="marque-tag">ASTON MARTIN</div>[Image: DB4]</div>
+      <div class="vehicle-info">
+        <div class="authenticity-badge">✓ AMOC documented</div>
+        <div class="vehicle-name">1961 Aston Martin DB4 Series II</div>
+        <table class="vehicle-detail-table">
+          <tr><td>Chassis</td><td>DB4/551/R</td></tr>
+          <tr><td>Colour</td><td>British Racing Green</td></tr>
+          <tr><td>Interior</td><td>Fawn Connolly Hide</td></tr>
+        </table>
+        <div class="vehicle-price">£425,000</div>
+        <a href="#" class="vehicle-btn">View Full History</a>
+      </div>
+    </div>
+
+    <div class="vehicle-card">
+      <div class="vehicle-image"><div class="marque-tag">MG</div>[Image: MGB Roadster]</div>
+      <div class="vehicle-info">
+        <div class="authenticity-badge">✓ MG Car Club verified</div>
+        <div class="vehicle-name">1972 MGB Roadster</div>
+        <table class="vehicle-detail-table">
+          <tr><td>Chassis</td><td>GHN5-360124</td></tr>
+          <tr><td>Colour</td><td>Tartan Red</td></tr>
+          <tr><td>Interior</td><td>Black Vinyl (original)</td></tr>
+        </table>
+        <div class="vehicle-price">£18,950</div>
+        <a href="#" class="vehicle-btn">View Full History</a>
+      </div>
+    </div>
+
+    <div class="vehicle-card">
+      <div class="vehicle-image"><div class="marque-tag">TRIUMPH</div>[Image: TR6]</div>
+      <div class="vehicle-info">
+        <div class="authenticity-badge">✓ TR Register verified</div>
+        <div class="vehicle-name">1974 Triumph TR6 150bhp</div>
+        <table class="vehicle-detail-table">
+          <tr><td>Chassis</td><td>CF41822U</td></tr>
+          <tr><td>Colour</td><td>Mimosa Yellow</td></tr>
+          <tr><td>Interior</td><td>Black Leather</td></tr>
+        </table>
+        <div class="vehicle-price">£24,750</div>
+        <a href="#" class="vehicle-btn">View Full History</a>
+      </div>
+    </div>
+
+    <div class="vehicle-card">
+      <div class="vehicle-image"><div class="marque-tag">AUSTIN-HEALEY</div>[Image: 3000 Mk III]</div>
+      <div class="vehicle-info">
+        <div class="authenticity-badge">✓ Healey Club verified</div>
+        <div class="vehicle-name">1966 Austin-Healey 3000 Mk III</div>
+        <table class="vehicle-detail-table">
+          <tr><td>Chassis</td><td>HBJ8L/30642</td></tr>
+          <tr><td>Colour</td><td>Old English White</td></tr>
+          <tr><td>Interior</td><td>Black Leather (restored)</td></tr>
+        </table>
+        <div class="vehicle-price">£58,500</div>
+        <a href="#" class="vehicle-btn">View Full History</a>
+      </div>
+    </div>
+
+    <div class="vehicle-card">
+      <div class="vehicle-image"><div class="marque-tag">JAGUAR</div>[Image: XK150]</div>
+      <div class="vehicle-info">
+        <div class="authenticity-badge">✓ JDHT documented</div>
+        <div class="vehicle-name">1958 Jaguar XK150 3.4 FHC</div>
+        <table class="vehicle-detail-table">
+          <tr><td>Chassis</td><td>S839532DN</td></tr>
+          <tr><td>Colour</td><td>Cream over Red</td></tr>
+          <tr><td>Interior</td><td>Red Leather</td></tr>
+        </table>
+        <div class="vehicle-price">£92,000</div>
+        <a href="#" class="vehicle-btn">View Full History</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="expertise" id="expertise">
+  <div class="expertise-grid">
+    <div class="expertise-content">
+      <h2>Restoration by marque specialists</h2>
+      <p>Our workshop restores exclusively British classics using period-correct parts sourced from our network of specialist suppliers, marque clubs, and original component archives.</p>
+      <p>Every restoration is documented photographically from strip-down to completion, giving you a full record of the work performed.</p>
+      <div class="expertise-stats">
+        <div>
+          <div class="expertise-stat-value">340+</div>
+          <div class="expertise-stat-label">Restorations completed</div>
+        </div>
+        <div>
+          <div class="expertise-stat-value">30 yrs</div>
+          <div class="expertise-stat-label">British marque focus</div>
+        </div>
+      </div>
+    </div>
+    <div class="expertise-image">[Photo: Workshop restoration in progress]</div>
+  </div>
+</section>
+
+<footer id="restoration">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Albion Marque</h4>
+      <p>British classic car specialists. Sourcing, sales, and in-house restoration since 1994.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Home Farm, Chipping Norton, Oxfordshire<br>+44 (0)1608 555 176<br>enquiries@albionmarque.co.uk</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <p><a href="#">Sourcing</a><br><a href="#">Restoration</a><br><a href="#">Authentication</a><br><a href="#">Storage</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Albion Marque. All rights reserved. | <a href="#" style="color:#a8b8a6;">Privacy Policy</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dealer Onboarding - Welcome to motors.bivetica.com</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a2e; background: #f4f6f8; }
+
+.wizard-header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.wizard-logo { font-size: 18px; font-weight: 700; }
+.wizard-logo span { color: #4d9fff; }
+.wizard-exit { font-size: 13px; color: #6b7280; text-decoration: none; }
+
+.progress-track { background: #fff; padding: 1.5rem 2rem 0; border-bottom: 1px solid #e2e8f0; }
+.progress-steps { display: flex; justify-content: space-between; max-width: 900px; margin: 0 auto; position: relative; }
+.progress-steps::before { content: ''; position: absolute; top: 14px; left: 0; right: 0; height: 2px; background: #e2e8f0; z-index: 0; }
+.progress-step { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; z-index: 1; flex: 1; }
+.progress-circle { width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #9ca3af; }
+.progress-step.done .progress-circle { background: #4ade80; border-color: #4ade80; color: #fff; }
+.progress-step.active .progress-circle { background: #0d1b3e; border-color: #0d1b3e; color: #fff; }
+.progress-label { font-size: 11px; color: #6b7280; padding-bottom: 1.25rem; text-align: center; }
+.progress-step.active .progress-label { color: #0d1b3e; font-weight: 700; }
+
+.wizard-body { max-width: 720px; margin: 0 auto; padding: 3rem 2rem; }
+.step-eyebrow { font-size: 12px; color: #4d9fff; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.5rem; }
+.step-title { font-size: 28px; margin-bottom: 0.5rem; }
+.step-desc { font-size: 14px; color: #6b7280; margin-bottom: 2rem; line-height: 1.6; }
+
+.checklist-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-start; }
+.checklist-icon { width: 40px; height: 40px; border-radius: 8px; background: #f0f7ff; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.checklist-content h3 { font-size: 15px; margin-bottom: 0.35rem; }
+.checklist-content p { font-size: 13px; color: #6b7280; line-height: 1.6; }
+.checklist-status { margin-left: auto; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 12px; flex-shrink: 0; }
+.status-required { background: #fef2f2; color: #dc2626; }
+.status-optional { background: #f0f9ff; color: #0284c7; }
+.status-done { background: #ecfdf5; color: #059669; }
+
+.plan-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.plan-card { background: #fff; border: 2px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; text-align: center; cursor: pointer; }
+.plan-card.recommended { border-color: #0d1b3e; position: relative; }
+.plan-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #0d1b3e; color: #fff; font-size: 10px; padding: 4px 12px; border-radius: 10px; font-weight: 700; }
+.plan-name { font-size: 14px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+.plan-price { font-size: 30px; font-weight: 700; margin-bottom: 0.25rem; }
+.plan-price span { font-size: 13px; font-weight: 400; color: #6b7280; }
+.plan-features { list-style: none; margin-top: 1rem; text-align: left; font-size: 12px; color: #4b5563; }
+.plan-features li { padding: 6px 0; border-top: 1px solid #f0f0f0; }
+
+.document-upload-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 0.75rem; background: #fff; }
+.doc-icon { font-size: 20px; }
+.doc-info { flex: 1; }
+.doc-name { font-size: 13px; font-weight: 600; }
+.doc-note { font-size: 11px; color: #9ca3af; }
+.doc-upload-btn { padding: 8px 16px; background: #f4f6f8; color: #0d1b3e; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 9px; top: 4px; bottom: 4px; width: 2px; background: #e2e8f0; }
+.timeline-item { position: relative; padding-bottom: 1.75rem; }
+.timeline-item::before { content: ''; position: absolute; left: -2rem; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: #0d1b3e; border: 3px solid #fff; box-shadow: 0 0 0 2px #0d1b3e; }
+.timeline-day { font-size: 11px; color: #4d9fff; font-weight: 700; text-transform: uppercase; margin-bottom: 0.25rem; }
+.timeline-title { font-size: 14px; font-weight: 700; margin-bottom: 0.25rem; }
+.timeline-desc { font-size: 13px; color: #6b7280; }
+
+.success-box { text-align: center; padding: 3rem 2rem; }
+.success-icon { width: 72px; height: 72px; border-radius: 50%; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 1.5rem; }
+.success-title { font-size: 26px; margin-bottom: 0.75rem; }
+.success-desc { font-size: 14px; color: #6b7280; max-width: 450px; margin: 0 auto 2rem; line-height: 1.7; }
+.live-url-box { background: #f0f7ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 1rem 1.5rem; display: inline-flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+.live-url { font-family: monospace; font-size: 14px; color: #0d1b3e; font-weight: 600; }
+.copy-btn { padding: 6px 14px; background: #0d1b3e; color: #fff; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; }
+
+.wizard-footer { display: flex; justify-content: space-between; gap: 1rem; padding-top: 2rem; border-top: 1px solid #e2e8f0; margin-top: 2rem; }
+.btn-back { padding: 12px 24px; background: #fff; color: #0d1b3e; border: 1px solid #d1d5db; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.btn-next { padding: 12px 32px; background: #0d1b3e; color: #fff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="wizard-header">
+  <div class="wizard-logo">Motors<span>.bivetica</span></div>
+  <a href="#" class="wizard-exit">Save and exit</a>
+</div>
+
+<div class="progress-track">
+  <div class="progress-steps">
+    <div class="progress-step done"><div class="progress-circle">✓</div><div class="progress-label">Welcome</div></div>
+    <div class="progress-step done"><div class="progress-circle">✓</div><div class="progress-label">Business details</div></div>
+    <div class="progress-step done"><div class="progress-circle">✓</div><div class="progress-label">Verification</div></div>
+    <div class="progress-step active"><div class="progress-circle">4</div><div class="progress-label">Choose plan</div></div>
+    <div class="progress-step"><div class="progress-circle">5</div><div class="progress-label">Template & branding</div></div>
+    <div class="progress-step"><div class="progress-circle">6</div><div class="progress-label">Add inventory</div></div>
+    <div class="progress-step"><div class="progress-circle">7</div><div class="progress-label">Go live</div></div>
+  </div>
+</div>
+
+<div class="wizard-body">
+  <div class="step-eyebrow">Step 4 of 7</div>
+  <h1 class="step-title">Choose your plan</h1>
+  <p class="step-desc">Pick the plan that fits your inventory size. You can upgrade or downgrade at any time — your website and data stay exactly as they are.</p>
+
+  <div class="plan-cards">
+    <div class="plan-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">£99<span>/mo</span></div>
+      <ul class="plan-features">
+        <li>1 template of your choice</li>
+        <li>Up to 50 vehicles</li>
+        <li>Basic customization</li>
+        <li>Email support</li>
+      </ul>
+    </div>
+    <div class="plan-card recommended">
+      <div class="plan-badge">MOST POPULAR</div>
+      <div class="plan-name">Professional</div>
+      <div class="plan-price">£199<span>/mo</span></div>
+      <ul class="plan-features">
+        <li>Any template, switch anytime</li>
+        <li>Up to 500 vehicles</li>
+        <li>Full customization + analytics</li>
+        <li>AutoTrader & eBay sync ready</li>
+        <li>Priority support</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">Custom</div>
+      <ul class="plan-features">
+        <li>Multi-location support</li>
+        <li>Unlimited vehicles</li>
+        <li>Full API access</li>
+        <li>Dedicated account manager</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <button class="btn-back">← Back</button>
+    <button class="btn-next">Continue to Template & Branding →</button>
+  </div>
+</div>
+
+<hr style="border: none; border-top: 8px solid #f4f6f8; margin: 2rem 0;">
+
+<div class="wizard-body" style="padding-top: 0;">
+  <div class="step-eyebrow">Reference: Step 3 — Verification (completed)</div>
+  <h1 class="step-title">Verify your dealership</h1>
+  <p class="step-desc">We ask for a few documents to keep motors.bivetica.com a trusted marketplace for buyers. Most dealers complete this in under 10 minutes.</p>
+
+  <div class="document-upload-row">
+    <div class="doc-icon">📄</div>
+    <div class="doc-info">
+      <div class="doc-name">Companies House registration or sole trader proof</div>
+      <div class="doc-note">Certificate of incorporation, or self-employment confirmation</div>
+    </div>
+    <button class="doc-upload-btn">✓ Uploaded</button>
+  </div>
+
+  <div class="document-upload-row">
+    <div class="doc-icon">🏢</div>
+    <div class="doc-info">
+      <div class="doc-name">Proof of trading address</div>
+      <div class="doc-note">Utility bill, lease agreement, or business rates bill (last 3 months)</div>
+    </div>
+    <button class="doc-upload-btn">✓ Uploaded</button>
+  </div>
+
+  <div class="document-upload-row">
+    <div class="doc-icon">🛡️</div>
+    <div class="doc-info">
+      <div class="doc-name">Motor trade insurance certificate</div>
+      <div class="doc-note">Required to list vehicles for sale</div>
+    </div>
+    <button class="doc-upload-btn">✓ Uploaded</button>
+  </div>
+
+  <div class="document-upload-row">
+    <div class="doc-icon">🪪</div>
+    <div class="doc-info">
+      <div class="doc-name">Director / owner photo ID</div>
+      <div class="doc-note">Passport or driving licence</div>
+    </div>
+    <button class="doc-upload-btn">✓ Uploaded</button>
+  </div>
+</div>
+
+<hr style="border: none; border-top: 8px solid #f4f6f8; margin: 2rem 0;">
+
+<div class="wizard-body" style="padding-top: 0;">
+  <div class="step-eyebrow">Reference: Step 6 — Add Your Inventory</div>
+  <h1 class="step-title">What we'll need for each vehicle</h1>
+  <p class="step-desc">You can add vehicles one at a time, or bulk import from a spreadsheet if you're migrating from another platform.</p>
+
+  <div class="checklist-card">
+    <div class="checklist-icon">📸</div>
+    <div class="checklist-content">
+      <h3>Vehicle photos</h3>
+      <p>Minimum 6 photos per vehicle, 1200×800px or larger. Exterior (4 angles), interior, engine bay recommended.</p>
+    </div>
+    <div class="checklist-status status-required">Required</div>
+  </div>
+
+  <div class="checklist-card">
+    <div class="checklist-icon">📋</div>
+    <div class="checklist-content">
+      <h3>Core details</h3>
+      <p>Make, model, year, price, colour, mileage, engine, transmission, VIN/chassis number.</p>
+    </div>
+    <div class="checklist-status status-required">Required</div>
+  </div>
+
+  <div class="checklist-card">
+    <div class="checklist-icon">📝</div>
+    <div class="checklist-content">
+      <h3>Description & history</h3>
+      <p>Free-text description, service history, ownership history, any notable provenance.</p>
+    </div>
+    <div class="checklist-status status-optional">Recommended</div>
+  </div>
+
+  <div class="checklist-card">
+    <div class="checklist-icon">🔗</div>
+    <div class="checklist-content">
+      <h3>AutoTrader / eBay listing ID</h3>
+      <p>If this vehicle is already listed elsewhere, link it here to keep stock levels in sync.</p>
+    </div>
+    <div class="checklist-status status-optional">Optional</div>
+  </div>
+</div>
+
+<hr style="border: none; border-top: 8px solid #f4f6f8; margin: 2rem 0;">
+
+<div class="wizard-body" style="padding-top: 0;">
+  <div class="step-eyebrow">Reference: What happens after you submit</div>
+  <h1 class="step-title">Your go-live timeline</h1>
+  <p class="step-desc">Here's what to expect once your profile, plan, and inventory are submitted.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-day">Day 0 — Today</div>
+      <div class="timeline-title">Application submitted</div>
+      <div class="timeline-desc">Your profile, documents, and plan selection are received.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-day">Day 1-2</div>
+      <div class="timeline-title">Verification review</div>
+      <div class="timeline-desc">Our team checks your documents. We'll email if anything's missing.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-day">Day 2-3</div>
+      <div class="timeline-title">Site build & preview</div>
+      <div class="timeline-desc">Your template renders with your branding — you'll get a private preview link.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-day">Day 3-4</div>
+      <div class="timeline-title">Review & approve</div>
+      <div class="timeline-desc">You review the preview, request any changes, and approve when ready.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-day">Day 4-5</div>
+      <div class="timeline-title">Go live</div>
+      <div class="timeline-desc">Your dealer site goes live at yourname.motors.bivetica.com.</div>
+    </div>
+  </div>
+</div>
+
+<hr style="border: none; border-top: 8px solid #f4f6f8; margin: 2rem 0;">
+
+<div class="wizard-body" style="padding-top: 0;">
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+    <div class="success-title">You're live, Classic & Historic Motors!</div>
+    <div class="success-desc">Your dealership website is now published and ready for customers. You can add more vehicles, update your branding, or switch templates any time from your dashboard.</div>
+
+    <div class="live-url-box">
+      <span class="live-url">classichistoric.motors.bivetica.com</span>
+      <button class="copy-btn">Copy link</button>
+    </div>
+
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+      <button class="btn-back">Go to Dashboard</button>
+      <button class="btn-next">View My Live Site →</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

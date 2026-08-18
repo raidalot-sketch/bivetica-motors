@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dealer Customizer - Admin Panel</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a2e; background: #f4f6f8; }
+
+.app-shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.sidebar { background: #0d1b3e; color: #fff; padding: 1.5rem; }
+.sidebar-logo { font-size: 18px; font-weight: 700; margin-bottom: 2rem; }
+.sidebar-logo span { color: #4d9fff; }
+.step-list { list-style: none; }
+.step-item { display: flex; align-items: center; gap: 10px; padding: 12px 10px; border-radius: 6px; margin-bottom: 4px; font-size: 13px; color: #94a3b8; cursor: pointer; }
+.step-item.active { background: #16274f; color: #fff; }
+.step-item.done { color: #4ade80; }
+.step-num { width: 22px; height: 22px; border-radius: 50%; background: #1e2f52; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+.step-item.active .step-num { background: #4d9fff; color: #0d1b3e; font-weight: 700; }
+.step-item.done .step-num { background: #4ade80; color: #0d1b3e; }
+
+.main-panel { display: grid; grid-template-columns: 420px 1fr; }
+.form-panel { padding: 2rem; overflow-y: auto; border-right: 1px solid #e2e8f0; background: #fff; }
+.form-panel h2 { font-size: 20px; margin-bottom: 0.5rem; }
+.form-panel .subtitle { font-size: 13px; color: #6b7280; margin-bottom: 1.5rem; }
+
+.field-group { margin-bottom: 1.25rem; }
+.field-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 0.4rem; color: #374151; }
+.field-group input[type="text"], .field-group input[type="email"], .field-group input[type="tel"], .field-group textarea, .field-group select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+.field-group textarea { resize: vertical; min-height: 70px; }
+.field-hint { font-size: 12px; color: #9ca3af; margin-top: 0.3rem; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.color-picker-row { display: flex; gap: 10px; align-items: center; }
+.color-swatch { width: 40px; height: 40px; border-radius: 6px; border: 2px solid #e5e7eb; cursor: pointer; flex-shrink: 0; }
+.color-hex-input { flex: 1; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 13px; font-family: monospace; }
+.preset-colors { display: flex; gap: 8px; margin-top: 0.5rem; }
+.preset-swatch { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+.preset-swatch.selected { border-color: #1a1a2e; }
+
+.template-picker-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+.template-thumb { border: 2px solid #e5e7eb; border-radius: 8px; overflow: hidden; cursor: pointer; }
+.template-thumb.selected { border-color: #4d9fff; }
+.template-thumb-preview { height: 70px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; font-weight: 700; }
+.template-thumb-label { padding: 8px; font-size: 11px; font-weight: 600; text-align: center; background: #fff; }
+
+.logo-upload { border: 2px dashed #d1d5db; border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer; }
+.logo-upload:hover { border-color: #4d9fff; background: #f0f7ff; }
+.logo-upload-icon { font-size: 28px; margin-bottom: 0.5rem; }
+.logo-upload-text { font-size: 13px; color: #6b7280; }
+
+.vehicle-list { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+.vehicle-list-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid #f0f0f0; }
+.vehicle-list-item:last-child { border-bottom: none; }
+.vehicle-thumb { width: 50px; height: 40px; background: #e5e7eb; border-radius: 4px; flex-shrink: 0; }
+.vehicle-list-info { flex: 1; }
+.vehicle-list-name { font-size: 13px; font-weight: 600; }
+.vehicle-list-price { font-size: 12px; color: #6b7280; }
+.vehicle-remove { color: #ef4444; cursor: pointer; font-size: 12px; }
+.add-vehicle-btn { width: 100%; padding: 10px; border: 1px dashed #d1d5db; border-radius: 6px; background: #fff; color: #4d9fff; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+.form-actions { display: flex; gap: 10px; margin-top: 2rem; }
+.btn-primary { flex: 1; padding: 12px; background: #0d1b3e; color: #fff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 14px; }
+.btn-secondary { padding: 12px 20px; background: #fff; color: #0d1b3e; border: 1px solid #d1d5db; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 14px; }
+
+.preview-panel { background: #f4f6f8; padding: 1.5rem; overflow-y: auto; }
+.preview-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.preview-toolbar-title { font-size: 14px; font-weight: 700; color: #6b7280; }
+.viewport-toggle { display: flex; gap: 6px; background: #fff; padding: 4px; border-radius: 6px; border: 1px solid #e2e8f0; }
+.viewport-btn { padding: 6px 12px; border: none; background: transparent; border-radius: 4px; font-size: 12px; cursor: pointer; color: #6b7280; }
+.viewport-btn.active { background: #0d1b3e; color: #fff; }
+.preview-frame { background: #fff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.preview-frame-header { background: #1a1a1a; padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+.preview-dot { width: 10px; height: 10px; border-radius: 50%; }
+.preview-mock { padding: 0; }
+.preview-mock-header { background: #0066cc; color: #fff; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; }
+.preview-mock-logo { font-size: 18px; font-weight: 700; }
+.preview-mock-nav { display: flex; gap: 16px; font-size: 12px; }
+.preview-mock-hero { background: linear-gradient(135deg, #f5f7fa, #e9ecef); padding: 40px 24px; text-align: center; }
+.preview-mock-hero h2 { font-size: 26px; margin-bottom: 8px; color: #1a1a1a; }
+.preview-mock-hero p { font-size: 13px; color: #666; margin-bottom: 16px; }
+.preview-mock-search { max-width: 400px; margin: 0 auto; display: flex; gap: 8px; }
+.preview-mock-search input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; }
+.preview-mock-search button { padding: 10px 18px; background: #0066cc; color: #fff; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; }
+.preview-mock-vehicles { padding: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.preview-mock-card { border: 1px solid #eee; border-radius: 6px; overflow: hidden; }
+.preview-mock-card-img { height: 70px; background: #e5e7eb; }
+.preview-mock-card-info { padding: 10px; }
+.preview-mock-card-name { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+.preview-mock-card-price { font-size: 12px; font-weight: 700; color: #0066cc; }
+
+.progress-badge { display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #059669; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">Motors<span>.bivetica</span> Customizer</div>
+    <ul class="step-list">
+      <li class="step-item done"><div class="step-num">✓</div> Select Template</li>
+      <li class="step-item active"><div class="step-num">2</div> Dealership Profile</li>
+      <li class="step-item"><div class="step-num">3</div> Branding & Colours</li>
+      <li class="step-item"><div class="step-num">4</div> Logo Upload</li>
+      <li class="step-item"><div class="step-num">5</div> Featured Vehicles</li>
+      <li class="step-item"><div class="step-num">6</div> Full Inventory</li>
+      <li class="step-item"><div class="step-num">7</div> Preview & Publish</li>
+    </ul>
+  </aside>
+
+  <div class="main-panel">
+    <div class="form-panel">
+      <div class="progress-badge">✓ Template selected: Modern Grid</div>
+      <h2>Dealership Profile</h2>
+      <p class="subtitle">Tell us about your business — this appears in your header, footer, and contact sections.</p>
+
+      <div class="field-group">
+        <label>Dealership name</label>
+        <input type="text" value="Classic & Historic Motors" placeholder="e.g. Millbrook Motors">
+      </div>
+
+      <div class="field-group">
+        <label>Tagline</label>
+        <input type="text" value="Premium collector vehicles" placeholder="e.g. Family run since 1978">
+        <div class="field-hint">Shown under your dealership name in the header.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>Phone number</label>
+          <input type="tel" value="+44 (0)1234 567890">
+        </div>
+        <div class="field-group">
+          <label>Email address</label>
+          <input type="email" value="info@classichistoric.co.uk">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Business address</label>
+        <textarea>123 Heritage Lane, Surrey, UK</textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>Weekday hours</label>
+          <input type="text" value="9am - 6pm">
+        </div>
+        <div class="field-group">
+          <label>Saturday hours</label>
+          <input type="text" value="10am - 4pm">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Sunday hours</label>
+        <input type="text" value="By appointment">
+      </div>
+
+      <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 1.5rem 0;">
+
+      <h2 style="font-size: 16px;">Template Selected</h2>
+      <div class="template-picker-grid">
+        <div class="template-thumb selected">
+          <div class="template-thumb-preview" style="background: #0066cc;">MODERN GRID</div>
+          <div class="template-thumb-label">Template 1</div>
+        </div>
+        <div class="template-thumb" style="opacity: 0.5;">
+          <div class="template-thumb-preview" style="background: #d4af37;">LUXURY SHOWCASE</div>
+          <div class="template-thumb-label">Template 2</div>
+        </div>
+      </div>
+      <a href="#" style="font-size: 12px; color: #4d9fff;">← Change template</a>
+
+      <div class="form-actions">
+        <button class="btn-secondary">Back</button>
+        <button class="btn-primary">Continue to Branding →</button>
+      </div>
+    </div>
+
+    <div class="preview-panel">
+      <div class="preview-toolbar">
+        <div class="preview-toolbar-title">Live Preview</div>
+        <div class="viewport-toggle">
+          <button class="viewport-btn active">Desktop</button>
+          <button class="viewport-btn">Tablet</button>
+          <button class="viewport-btn">Mobile</button>
+        </div>
+      </div>
+
+      <div class="preview-frame">
+        <div class="preview-frame-header">
+          <div class="preview-dot" style="background: #ff5f56;"></div>
+          <div class="preview-dot" style="background: #ffbd2e;"></div>
+          <div class="preview-dot" style="background: #27c93f;"></div>
+        </div>
+        <div class="preview-mock">
+          <div class="preview-mock-header">
+            <div class="preview-mock-logo">Classic & Historic Motors</div>
+            <div class="preview-mock-nav">
+              <span>Vehicles</span><span>About</span><span>Contact</span>
+            </div>
+          </div>
+          <div class="preview-mock-hero">
+            <h2>Stunning Classic & Historic Vehicles</h2>
+            <p>Browse our curated collection of exceptional motorcars</p>
+            <div class="preview-mock-search">
+              <input type="text" placeholder="Search by make, model, year...">
+              <button>Search</button>
+            </div>
+          </div>
+          <div class="preview-mock-vehicles">
+            <div class="preview-mock-card">
+              <div class="preview-mock-card-img"></div>
+              <div class="preview-mock-card-info">
+                <div class="preview-mock-card-name">Ferrari Testarossa</div>
+                <div class="preview-mock-card-price">£245,000</div>
+              </div>
+            </div>
+            <div class="preview-mock-card">
+              <div class="preview-mock-card-img"></div>
+              <div class="preview-mock-card-info">
+                <div class="preview-mock-card-name">Jaguar E-Type</div>
+                <div class="preview-mock-card-price">£189,500</div>
+              </div>
+            </div>
+            <div class="preview-mock-card">
+              <div class="preview-mock-card-img"></div>
+              <div class="preview-mock-card-info">
+                <div class="preview-mock-card-name">Mercedes 300SL</div>
+                <div class="preview-mock-card-price">£320,000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size: 12px; color: #9ca3af; text-align: center; margin-top: 1rem;">Preview updates automatically as you edit your profile</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
